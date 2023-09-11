@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-ArchMilestone
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Adds a new milestone to a roadmap.
 
 ## SYNTAX
 
@@ -18,66 +18,20 @@ Add-ArchMilestone -Roadmap <Object> [-Id] <String> [-Title] <String> [-DependsOn
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Creates and adds a milestone to a previously created roadmap object.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+$Roadmap = New-ArchRoadmap -Title MyRoadmap
+PS> $Roadmap | Add-ArchMilestone -Id 4711 -Title MyMilestone
+```
 
 ## PARAMETERS
 
-### -DependsOn
-{{ Fill DependsOn Description }}
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Id
-{{ Fill Id Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -PassThru
-{{ Fill PassThru Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Roadmap
-{{ Fill Roadmap Description }}
+The roadmap, the milestone is added to.
 
 ```yaml
 Type: Object
@@ -91,8 +45,10 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Title
-{{ Fill Title Description }}
+### -Id
+The identifier of the milestone.
+E.g.
+the ticket number.
 
 ```yaml
 Type: String
@@ -106,16 +62,58 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Title
+The title of the milestone.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DependsOn
+Features or milestones that must be completed, before the milestone is reached.
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+Switch that specifies, if the milestone should be returned instead of only added to the roadmap.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### System.Object
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS

@@ -1,16 +1,54 @@
 function ConvertTo-Diagram {
 
+    <#
+    
+    .SYNOPSIS
+    Converts the roadmap to diagram.
+
+    .DESCRIPTION
+    Creates a mermaid flowchart to display the roadmap.
+
+    .EXAMPLE
+    PS> $Roadmap = New-ArchRoadmap 'Diagram Title'
+    PS> $Roadmap | Add-ArchFeature A 'do this' -Link 'https://www.github.com'
+    PS> $Roadmap | Add-ArchFeature B 'do that' -Link 'https://www.github.com'
+    PS> $Roadmap | Add-ArchMilestone C 'be epic' -DependsOn A, B
+    PS> $Roadmap | Add-ArchFeature D 'do whatever' -DependsOn C
+    PS> $Roadmap | Add-ArchFeature E 'do what else' -DependsOn C
+    PS> $Roadmap | ConvertTo-ArchDiagram
+    ---
+    title: Diagram Title
+    ---
+    flowchart
+        classDef feature fill:#ffcc5c
+        classDef milestone fill:#96ceb4
+        A[do this]:::feature
+        B[do that]:::feature
+        D[do whatever]:::feature
+        E[do what else]:::feature
+        C[be epic]:::milestone
+        click A "https://www.github.com" _blank
+        click B "https://www.github.com" _blank
+        C --> D
+        C --> E
+        A --> C
+        B --> C
+    #>
+
     [CmdletBinding()]
     param (
-        [Parameter(ValueFromPipelineByPropertyName)]
+        # Title of the roadmap diagram.
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [string]
         $Title,
         
-        [Parameter(ValueFromPipelineByPropertyName)]
+        # Features in the roadmap diagram.
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [PSCustomObject[]]
         $Features,
         
-        [Parameter(ValueFromPipelineByPropertyName)]
+        # Milestones in the roadmap diagram.
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [PSCustomObject[]]
         $Milestones
     )

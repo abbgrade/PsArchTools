@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-ArchRoadmap
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Create new roadmap object.
 
 ## SYNTAX
 
@@ -17,21 +17,19 @@ New-ArchRoadmap [-Title] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+A roadmap object is the basis to add features and milestones before the conversion to a diagram.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+New-ArchRoadmap -Title MyRoadmap
+```
 
 ## PARAMETERS
 
 ### -Title
-{{ Fill Title Description }}
+Specifies the title.
 
 ```yaml
 Type: String
@@ -39,7 +37,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +48,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
+### Roadmap
 ## NOTES
 
 ## RELATED LINKS
