@@ -6,39 +6,19 @@ Describe ConvertTo-Diagram {
         Import-Module $PSScriptRoot\..\src\PsArchTools.psd1 -Force -ErrorAction Stop
     }
 
-    It works {
-        ([PSCustomObject]@{
-            Title = 'Diagram Title'
-            Features = @(
-                @{
-                    Id = 'A'
-                    Title = 'do this'
-                    Link = 'https://www.github.com'
-                },
-                @{
-                    Id = 'B'
-                    Title = 'do that'
-                    Link = 'https://www.github.com'
-                },
-                @{
-                    Id = 'D'
-                    Title = 'do whatever'
-                    Dependencies = @('C')
-                },
-                @{
-                    Id = 'E'
-                    Title = 'do what else'
-                    Dependencies = @('C')
-                }
-            )
-            Milestones = @(
-                @{
-                    Id = 'C'
-                    Title = 'be epic'
-                    Dependencies = @('A', 'B')
-                }
-            )
-        }) | ConvertTo-ArchDiagram | Should -Be @'
+    Context Roadmap {
+
+        BeforeAll {
+            $Roadmap = New-ArchRoadmap 'Diagram Title'
+            $Roadmap | Add-ArchFeature A 'do this' -Link 'https://www.github.com'
+            $Roadmap | Add-ArchFeature B 'do that' -Link 'https://www.github.com'
+            $Roadmap | Add-ArchMilestone C 'be epic' -DependsOn A, B
+            $Roadmap | Add-ArchFeature D 'do whatever' -DependsOn C
+            $Roadmap | Add-ArchFeature E 'do what else' -DependsOn C
+        }
+
+        It works {
+            $Roadmap | ConvertTo-ArchDiagram | Should -Be @'
 ---
 title: Diagram Title
 ---
@@ -57,6 +37,7 @@ flowchart
     A --> C
     B --> C
 '@
+        }
     }
 
 }
