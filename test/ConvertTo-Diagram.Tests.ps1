@@ -6,6 +6,31 @@ Describe ConvertTo-Diagram {
         Import-Module $PSScriptRoot\..\src\PsArchTools.psd1 -Force -ErrorAction Stop
     }
 
+    Context Mini-Roadmap {
+
+        BeforeAll {
+            $Roadmap = New-ArchRoadmap 'Diagram Title'
+            $Roadmap | Add-ArchFeature A 'do this' -Link 'https://www.github.com'
+            $Roadmap | Add-ArchFeature B 'do that' -Link 'https://www.github.com' -DependsOn A
+        }
+
+        It works {
+            $Roadmap | ConvertTo-ArchDiagram | Should -Be @'
+---
+title: Diagram Title
+---
+flowchart LR
+    classDef feature fill:#ffcc5c
+    classDef milestone fill:#96ceb4
+    A["do this"]:::feature
+    B["do that"]:::feature
+    click A "https://www.github.com" _blank
+    click B "https://www.github.com" _blank
+    A --> B
+'@
+        }
+    }
+
     Context Roadmap {
 
         BeforeAll {
@@ -22,14 +47,14 @@ Describe ConvertTo-Diagram {
 ---
 title: Diagram Title
 ---
-flowchart
+flowchart LR
     classDef feature fill:#ffcc5c
     classDef milestone fill:#96ceb4
-    A[do this]:::feature
-    B[do that]:::feature
-    D[do whatever]:::feature
-    E[do what else]:::feature
-    C[be epic]:::milestone
+    A["do this"]:::feature
+    B["do that"]:::feature
+    D["do whatever"]:::feature
+    E["do what else"]:::feature
+    C["be epic"]:::milestone
     click A "https://www.github.com" _blank
     click B "https://www.github.com" _blank
     C --> D

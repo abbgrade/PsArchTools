@@ -43,17 +43,17 @@ function ConvertTo-Diagram {
         $Title,
         
         # Features in the roadmap diagram.
-        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [PSCustomObject[]]
         $Features,
         
         # Milestones in the roadmap diagram.
-        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [PSCustomObject[]]
         $Milestones
     )
 
-    $diagram = New-MermaidDiagram -Flowchart -Title $Title
+    $diagram = New-MermaidDiagram -Flowchart -Title $Title -Orientation left-to-right
     $diagram | Add-MermaidFlowchartClass -Name feature -Style 'fill:#ffcc5c'
     $diagram | Add-MermaidFlowchartClass -Name milestone -Style 'fill:#96ceb4'
 
@@ -61,7 +61,7 @@ function ConvertTo-Diagram {
         $node = [PSCustomObject] $_
         $diagram | Add-MermaidFlowchartNode `
             -Key $node.Id `
-            -Name $node.Title `
+            -Name ('"' + $node.Title + '"') `
             -Class feature
         
             if ( $node.Link ) {
@@ -84,7 +84,7 @@ function ConvertTo-Diagram {
         $node = [PSCustomObject] $_
         $diagram | Add-MermaidFlowchartNode `
             -Key $node.Id `
-            -Name $node.Title `
+            -Name ('"' + $node.Title + '"') `
             -Class milestone
 
         if ( $node.Dependencies ) {

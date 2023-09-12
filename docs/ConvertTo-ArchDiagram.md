@@ -13,7 +13,7 @@ Converts the roadmap to diagram.
 ## SYNTAX
 
 ```
-ConvertTo-ArchDiagram [-Title] <String> [-Features] <PSObject[]> [-Milestones] <PSObject[]>
+ConvertTo-ArchDiagram [-Title] <String> [[-Features] <PSObject[]>] [[-Milestones] <PSObject[]>]
  [<CommonParameters>]
 ```
 
@@ -75,7 +75,7 @@ Type: PSObject[]
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 2
 Default value: None
 Accept pipeline input: True (ByPropertyName)
@@ -90,7 +90,7 @@ Type: PSObject[]
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
