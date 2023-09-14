@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) Steffen Kampmann. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Tools to support software architects.'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
