@@ -1,3 +1,9 @@
+[CmdletBinding()]
+param (
+    [Parameter()]
+    [int] $BuildNumber
+)
+
 $ModuleName = 'PsArchTools'
 
 . $PSScriptRoot/tasks/Build.Tasks.ps1
