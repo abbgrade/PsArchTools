@@ -1,1 +1,3 @@
-task InstallBuildDependencies {}
+task InstallBuildDependencies {
+    Install-Module PsMermaidTools
+}
