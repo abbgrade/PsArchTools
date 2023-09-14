@@ -6,4 +6,6 @@ task InstallTestDependencies {
     Install-Module PsMermaidTools
 }
 
-task InstallReleaseDependencies {}
+task InstallReleaseDependencies {
+    Install-Module PsMermaidTools
+}
