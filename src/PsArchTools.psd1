@@ -51,7 +51,10 @@ Copyright = '(c) Steffen Kampmann. All rights reserved.'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('PsMermaidTools')
+RequiredModules = @(@{
+    ModuleName = 'PsMermaidTools'
+    ModuleVersion = '0.4.0'
+})
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
