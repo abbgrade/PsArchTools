@@ -1,3 +1,3 @@
 task InstallBuildDependencies {
-    Install-Module PsMermaidTools
+    Install-Module PsMermaidTools, platyPs
 }
