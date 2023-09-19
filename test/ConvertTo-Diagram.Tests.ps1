@@ -65,4 +65,49 @@ flowchart LR
         }
     }
 
+    Context DataJourney {
+
+        BeforeAll {
+            $Context = New-ArchDataJourney 'Diagram Title'
+            $Diner = $Context | Add-ArchDataLayer diner -PassThru
+            $Bronze = $Diner | Add-ArchDataLayer bronze -PassThru
+            $Bronze | Add-ArchDataModel milk
+            $Bronze | Add-ArchDataModel yeast
+            $Bronze | Add-ArchDataModel flour
+            $Bronze | Add-ArchDataModel beef
+        }
+
+        It works {
+            $Context | ConvertTo-ArchDiagram | Should -Be @'
+---
+title: Diagram Title
+---
+---
+title: Diagram Title
+---
+flowchart TD
+    subgraph diner
+        subgraph bronze
+            milk
+            yeast
+            flour
+            beef
+        end
+        subgraph silver
+            milk --> cheese
+            yeast --> cheese
+            flour --> bun
+            yeast --> bun
+            beef --> patty
+        end
+        subgraph gold
+            bun --> burger
+            patty --> burger
+            cheese --> burger
+        end
+    end
+'@
+        }
+    }
+
 }
