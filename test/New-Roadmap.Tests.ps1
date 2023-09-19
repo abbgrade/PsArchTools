@@ -9,7 +9,8 @@ Describe New-Roadmap {
     It works {
         $roadmap = New-ArchRoadmap -Title foobar
         $roadmap.Title | Should -Be foobar
-        $diagram.Features | Should -Be @()
+        $roadmap.Features | Should -Be @()
+        $roadmap.Milestones | Should -Be @()
     }
 
 }
