@@ -22,6 +22,7 @@ function Add-DataLayer {
             Title  = $Title
             Layer  = @()
             Models = @()
+            Flows = @()
         }
 
         $Journey.Layer += $layer

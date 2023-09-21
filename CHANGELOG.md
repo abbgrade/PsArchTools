@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- new command `New-DataJourney`.
+- new command `New-DataLayer`.
+- new command `New-DataModel`.
+- new command `New-DataFlow`.
+
 ## [0.1.0] - 2023-09-14
 
 ### Added

@@ -14,6 +14,7 @@ function New-DataJourney {
             Title = $Title
             Layer = @()
             Models = @()
+            Flows = @()
         }
     }
 

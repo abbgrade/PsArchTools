@@ -40,23 +40,32 @@ function ConvertTo-Diagram {
         # Title of the roadmap diagram.
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
-        [string]
-        $Title,
+        [string] $Title,
         
         # Features in the roadmap diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
-        [PSCustomObject[]]
-        $Features,
+        [ValidateNotNull()]
+        [PSCustomObject[]] $Features,
         
         # Milestones in the roadmap diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
-        [PSCustomObject[]]
-        $Milestones,
+        [ValidateNotNull()]
+        [PSCustomObject[]] $Milestones,
+        
+        # Models in the data journey diagram.
+        [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
+        [ValidateNotNull()]
+        [PSCustomObject[]] $Models,
+        
+        # Flows in the data journey diagram.
+        [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
+        [ValidateNotNull()]
+        [PSCustomObject[]] $Flows,
         
         # Layer in the data journey diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
-        [PSCustomObject[]]
-        $Layer
+        [ValidateNotNull()]
+        [PSCustomObject[]] $Layer
     )
 
     process {
@@ -109,11 +118,7 @@ function ConvertTo-Diagram {
             }
             journey {
                 $diagram = New-MermaidDiagram -Flowchart -Title $Title -Orientation top-down
-
-                $Layer | ForEach-Object {
-                    $diagram | Add-MermaidFlowchartSubgraph -Key $Title
-                }
-
+                Convert-DataJourneyLayer -Parent $diagram -Models $Models -Flows $Flows -Layer $Layer
                 $diagram | ConvertTo-MermaidString | Write-Output
             }
             Default {

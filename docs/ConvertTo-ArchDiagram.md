@@ -12,9 +12,14 @@ Converts the roadmap to diagram.
 
 ## SYNTAX
 
+### journey
 ```
-ConvertTo-ArchDiagram [-Title] <String> [[-Features] <PSObject[]>] [[-Milestones] <PSObject[]>]
- [<CommonParameters>]
+ConvertTo-ArchDiagram -Title <String> [-Layer <PSObject[]>] [<CommonParameters>]
+```
+
+### roadmap
+```
+ConvertTo-ArchDiagram -Title <String> [-Features <PSObject[]>] [-Milestones <PSObject[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -61,7 +66,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -72,11 +77,11 @@ Features in the roadmap diagram.
 
 ```yaml
 Type: PSObject[]
-Parameter Sets: (All)
+Parameter Sets: roadmap
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -87,11 +92,26 @@ Milestones in the roadmap diagram.
 
 ```yaml
 Type: PSObject[]
-Parameter Sets: (All)
+Parameter Sets: roadmap
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Layer
+Layer in the data journey diagram.
+
+```yaml
+Type: PSObject[]
+Parameter Sets: journey
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

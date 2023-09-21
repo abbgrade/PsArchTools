@@ -68,20 +68,30 @@ flowchart LR
     Context DataJourney {
 
         BeforeAll {
-            $Context = New-ArchDataJourney 'Diagram Title'
-            $Diner = $Context | Add-ArchDataLayer diner -PassThru
+            $Journey = New-ArchDataJourney 'Diagram Title'
+            $Diner = $Journey | Add-ArchDataLayer diner -PassThru
+
             $Bronze = $Diner | Add-ArchDataLayer bronze -PassThru
             $Bronze | Add-ArchDataModel milk
             $Bronze | Add-ArchDataModel yeast
             $Bronze | Add-ArchDataModel flour
             $Bronze | Add-ArchDataModel beef
+
+            $Silver = $Diner | Add-ArchDataLayer silver -PassThru
+            $Silver | Add-ArchDataModel cheese
+            $Silver | Add-ArchDataFlow -Sink cheese -Source milk, yeast
+            $Silver | Add-ArchDataModel bun
+            $Silver | Add-ArchDataFlow -Sink bun -Source flour, yeast
+            $Silver | Add-ArchDataModel patty
+            $Silver | Add-ArchDataFlow -Sink patty -Source beef
+
+            $Gold = $Diner | Add-ArchDataLayer gold -PassThru
+            $Gold | Add-ArchDataModel burger
+            $Gold | Add-ArchDataFlow -Sink burger -Source bun, patty, cheese
         }
 
         It works {
-            $Context | ConvertTo-ArchDiagram | Should -Be @'
----
-title: Diagram Title
----
+            $Journey | ConvertTo-ArchDiagram | Should -Be @'
 ---
 title: Diagram Title
 ---
@@ -94,6 +104,9 @@ flowchart TD
             beef
         end
         subgraph silver
+            cheese
+            bun
+            patty
             milk --> cheese
             yeast --> cheese
             flour --> bun
@@ -101,6 +114,7 @@ flowchart TD
             beef --> patty
         end
         subgraph gold
+            burger
             bun --> burger
             patty --> burger
             cheese --> burger
