@@ -7,6 +7,11 @@ function Add-DataFlow {
         [ValidateNotNull()]
         $Journey,
 
+        # The title of the flow.
+        [Parameter(Mandatory, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Title,
+
         [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string[]] $Source,
@@ -18,6 +23,7 @@ function Add-DataFlow {
 
     process {
         $flow = [PSCustomObject]@{
+            Title = $Title
             Sources = $Source
             Sinks = $Sink
         }

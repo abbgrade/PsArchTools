@@ -20,17 +20,18 @@ function Convert-DataJourneyLayer {
 
     process {
         $Models | ForEach-Object {
-            $Parent | Add-MermaidFlowchartNode $_.Title
+            $Parent | Add-MermaidFlowchartNode $_.Title -Shape cylindrical
         }
 
         $Flows | ForEach-Object {
             $flow = $_
+            $flowId = $_.Title
+            $Parent | Add-MermaidFlowchartNode $flowId -Shape rhombus
             $flow.Sources | ForEach-Object {
-                $source = $_
-                $flow.Sinks | ForEach-Object {
-                    $sink = $_
-                    $Parent | Add-MermaidFlowchartLink -Source $source -Destination $sink
-                }
+                $Parent | Add-MermaidFlowchartLink -Source $_ -Destination $flowId
+            }
+            $flow.Sinks | ForEach-Object {
+                $Parent | Add-MermaidFlowchartLink -Source $flowId -Destination $_
             }
         }
 

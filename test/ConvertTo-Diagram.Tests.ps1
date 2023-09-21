@@ -79,15 +79,15 @@ flowchart LR
 
             $Silver = $Diner | Add-ArchDataLayer silver -PassThru
             $Silver | Add-ArchDataModel cheese
-            $Silver | Add-ArchDataFlow -Sink cheese -Source milk, yeast
+            $Diner | Add-ArchDataFlow making-cheese -Sink cheese -Source milk, yeast
             $Silver | Add-ArchDataModel bun
-            $Silver | Add-ArchDataFlow -Sink bun -Source flour, yeast
+            $Diner | Add-ArchDataFlow bake -Sink bun -Source flour, yeast
             $Silver | Add-ArchDataModel patty
-            $Silver | Add-ArchDataFlow -Sink patty -Source beef
+            $Diner | Add-ArchDataFlow form -Sink patty -Source beef
 
             $Gold = $Diner | Add-ArchDataLayer gold -PassThru
             $Gold | Add-ArchDataModel burger
-            $Gold | Add-ArchDataFlow -Sink burger -Source bun, patty, cheese
+            $Diner | Add-ArchDataFlow fry -Sink burger -Source bun, patty, cheese
         }
 
         It works {
@@ -97,27 +97,35 @@ title: Diagram Title
 ---
 flowchart TD
     subgraph diner
+        making-cheese{making-cheese}
+        bake{bake}
+        form{form}
+        fry{fry}
+        milk --> making-cheese
+        yeast --> making-cheese
+        making-cheese --> cheese
+        flour --> bake
+        yeast --> bake
+        bake --> bun
+        beef --> form
+        form --> patty
+        bun --> fry
+        patty --> fry
+        cheese --> fry
+        fry --> burger
         subgraph bronze
-            milk
-            yeast
-            flour
-            beef
+            milk[(milk)]
+            yeast[(yeast)]
+            flour[(flour)]
+            beef[(beef)]
         end
         subgraph silver
-            cheese
-            bun
-            patty
-            milk --> cheese
-            yeast --> cheese
-            flour --> bun
-            yeast --> bun
-            beef --> patty
+            cheese[(cheese)]
+            bun[(bun)]
+            patty[(patty)]
         end
         subgraph gold
-            burger
-            bun --> burger
-            patty --> burger
-            cheese --> burger
+            burger[(burger)]
         end
     end
 '@
