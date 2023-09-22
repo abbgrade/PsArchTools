@@ -11,10 +11,10 @@ function New-DataJourney {
 
     process {
         [PSCustomObject]@{
-            Title = $Title
-            Layer = @()
-            Models = @()
-            Flows = @()
+            Title   = $Title
+            Layer   = @()
+            Models  = @()
+            Flows   = @()
         }
     }
 
