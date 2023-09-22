@@ -14,7 +14,8 @@ Converts the roadmap to diagram.
 
 ### journey
 ```
-ConvertTo-ArchDiagram -Title <String> [-Layer <PSObject[]>] [<CommonParameters>]
+ConvertTo-ArchDiagram -Title <String> [-Models <PSObject[]>] [-Flows <PSObject[]>] [-Layer <PSObject[]>]
+ [<CommonParameters>]
 ```
 
 ### roadmap
@@ -93,6 +94,36 @@ Milestones in the roadmap diagram.
 ```yaml
 Type: PSObject[]
 Parameter Sets: roadmap
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Models
+Models in the data journey diagram.
+
+```yaml
+Type: PSObject[]
+Parameter Sets: journey
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Flows
+Flows in the data journey diagram.
+
+```yaml
+Type: PSObject[]
+Parameter Sets: journey
 Aliases:
 
 Required: False

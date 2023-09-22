@@ -72,21 +72,21 @@ flowchart LR
             $Diner = $Journey | Add-ArchDataLayer diner -PassThru
 
             $Bronze = $Diner | Add-ArchDataLayer bronze -PassThru
-            $Bronze | Add-ArchDataModel milk
-            $Bronze | Add-ArchDataModel yeast
-            $Bronze | Add-ArchDataModel flour
-            $Bronze | Add-ArchDataModel beef
+            $Bronze | Add-ArchDataModel milk exchange
+            $Bronze | Add-ArchDataModel yeast exchange
+            $Bronze | Add-ArchDataModel flour exchange
+            $Bronze | Add-ArchDataModel beef exchange-original
 
             $Silver = $Diner | Add-ArchDataLayer silver -PassThru
-            $Silver | Add-ArchDataModel cheese
+            $Silver | Add-ArchDataModel cheese retention-original
             $Diner | Add-ArchDataFlow making-cheese -Sink cheese -Source milk, yeast
-            $Silver | Add-ArchDataModel bun
+            $Silver | Add-ArchDataModel bun retention-original
             $Diner | Add-ArchDataFlow bake -Sink bun -Source flour, yeast
-            $Silver | Add-ArchDataModel patty
+            $Silver | Add-ArchDataModel patty retention
             $Diner | Add-ArchDataFlow form -Sink patty -Source beef
 
             $Gold = $Diner | Add-ArchDataLayer gold -PassThru
-            $Gold | Add-ArchDataModel burger
+            $Gold | Add-ArchDataModel burger analysis
             $Diner | Add-ArchDataFlow fry -Sink burger -Source bun, patty, cheese
         }
 
@@ -96,6 +96,13 @@ flowchart LR
 title: Diagram Title
 ---
 flowchart TD
+    classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
+    classDef exchange fill:#ffe6cc,stroke:#d79b00
+    classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px
+    classDef analysis fill:#e1d5e7,stroke:#9673a6
+    classDef analysis-original fill:#e1d5e7,stroke:#9673a6,stroke-width:4px
+    classDef retention fill:#d5e8d4,stroke:#82b366
+    classDef retention-original fill:#d5e8d4,stroke:#82b366,stroke-width:4px
     subgraph diner
         making-cheese{making-cheese}
         bake{bake}
@@ -114,18 +121,18 @@ flowchart TD
         cheese --> fry
         fry --> burger
         subgraph bronze
-            milk[(milk)]
-            yeast[(yeast)]
-            flour[(flour)]
-            beef[(beef)]
+            milk[(milk)]:::exchange
+            yeast[(yeast)]:::exchange
+            flour[(flour)]:::exchange
+            beef[(beef)]:::exchange-original
         end
         subgraph silver
-            cheese[(cheese)]
-            bun[(bun)]
-            patty[(patty)]
+            cheese[(cheese)]:::retention-original
+            bun[(bun)]:::retention-original
+            patty[(patty)]:::retention
         end
         subgraph gold
-            burger[(burger)]
+            burger[(burger)]:::analysis
         end
     end
 '@

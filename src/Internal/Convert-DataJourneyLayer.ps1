@@ -20,7 +20,7 @@ function Convert-DataJourneyLayer {
 
     process {
         $Models | ForEach-Object {
-            $Parent | Add-MermaidFlowchartNode $_.Title -Shape cylindrical
+            $Parent | Add-MermaidFlowchartNode $_.Title -Shape cylindrical -Class:$_.Class
         }
 
         $Flows | ForEach-Object {
