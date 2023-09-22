@@ -1,18 +1,28 @@
 function Add-DataLayer {
+
+    <#
+    
+    .SYNOPSIS
+    Adds a new data layer to a data journey.
+
+    .DESCRIPTION
+    Creates and adds a data layer to a data journey or data layer.
+
+    #>
     
     [CmdletBinding()]
     param (
-        # The journey, the layer is added to.
+        # The data journey or parent layer, the layer is added to.
         [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateNotNull()]
-        $Journey,
+        $Parent,
 
         # The title of the layer.
         [Parameter(Mandatory, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 
-        # Switch that specifies, if the layer should be returned instead of only added to the journey.
+        # Switch that specifies, if the layer should be returned instead of only added to the data journey.
         [Parameter()]
         [switch] $PassThru
     )
@@ -25,7 +35,7 @@ function Add-DataLayer {
             Flows = @()
         }
 
-        $Journey.Layer += $layer
+        $Parent.Layer += $layer
 
         if ( $PassThru.IsPresent ) {
             Write-Output $layer

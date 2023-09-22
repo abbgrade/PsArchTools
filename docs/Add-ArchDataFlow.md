@@ -5,19 +5,20 @@ online version:
 schema: 2.0.0
 ---
 
-# Add-ArchDataLayer
+# Add-ArchDataFlow
 
 ## SYNOPSIS
-Adds a new data layer to a data journey.
+Adds a new data flow to a data journey.
 
 ## SYNTAX
 
 ```
-Add-ArchDataLayer -Parent <Object> [-Title] <String> [-PassThru] [<CommonParameters>]
+Add-ArchDataFlow -Journey <Object> [-Title] <String> -Source <String[]> -Sink <String[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates and adds a data layer to a data journey or data layer.
+Creates and adds a data flow to a data journey. 
+If the source or the sink models are not defined, they will be created implicitly.
 
 ## EXAMPLES
 
@@ -30,8 +31,8 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -Parent
-The data journey or parent layer, the layer is added to.
+### -Journey
+The data journey, the data flow is added to.
 
 ```yaml
 Type: Object
@@ -46,7 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### -Title
-The title of the layer.
+The title of the data flow.
 
 ```yaml
 Type: String
@@ -60,18 +61,33 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PassThru
-Switch that specifies, if the layer should be returned instead of only added to the data journey.
+### -Source
+The source models of tha data flow
 
 ```yaml
-Type: SwitchParameter
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: False
-Accept pipeline input: False
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Sink
+The sink models of tha data flow
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 

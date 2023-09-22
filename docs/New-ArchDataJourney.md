@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-ArchDataJourney
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new data journey.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ New-ArchDataJourney [-Title] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+A data journey describes the data layers with models and the data flows in between.
 
 ## EXAMPLES
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Title
-{{ Fill Title Description }}
+Specifies the title.
 
 ```yaml
 Type: String
@@ -39,7 +39,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,12 +50,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
 ### DataJourney
-
 ## NOTES
 
 ## RELATED LINKS
