@@ -8,7 +8,7 @@ function Add-DataLayer {
         $Journey,
 
         # The title of the layer.
-        [Parameter(Mandatory, Position = 1)]
+        [Parameter(Mandatory, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 
