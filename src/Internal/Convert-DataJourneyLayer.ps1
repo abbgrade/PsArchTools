@@ -37,7 +37,11 @@ function Convert-DataJourneyLayer {
 
         $Layer | ForEach-Object {
             $subgraph = $Parent | Add-MermaidFlowchartSubgraph -Key $_.Title -PassThru
-            Convert-DataJourneyLayer -Parent $subgraph -Models $_.Models -Flows $_.Flows -Layer $_.Layer
+            Convert-DataJourneyLayer `
+                -Parent $subgraph `
+                -Models ( $_.Models ? $_.Models : @() ) `
+                -Flows ( $_.Flows ? $_.Flows : @() ) `
+                -Layer ( $_.Layer ? $_.Layer : @() )
         }
 
     }
