@@ -139,4 +139,31 @@ flowchart TD
         }
     }
 
+    Context EmptyDataJourney {
+
+        BeforeAll {
+            $Journey = [PSCustomObject]( @"
+Title: foobar
+Layer: []
+Models: []
+Flows: []
+"@ | ConvertFrom-Yaml )
+        }
+
+        It works {
+            $Journey | ConvertTo-ArchDiagram| Should -Be @'
+---
+title: foobar
+---
+flowchart TD
+    classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
+    classDef exchange fill:#ffe6cc,stroke:#d79b00
+    classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px
+    classDef analysis fill:#e1d5e7,stroke:#9673a6
+    classDef analysis-original fill:#e1d5e7,stroke:#9673a6,stroke-width:4px
+    classDef retention fill:#d5e8d4,stroke:#82b366
+    classDef retention-original fill:#d5e8d4,stroke:#82b366,stroke-width:4px
+'@
+        }
+    }
 }
