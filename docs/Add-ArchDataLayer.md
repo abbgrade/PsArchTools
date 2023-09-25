@@ -13,7 +13,7 @@ Adds a new data layer to a data journey.
 ## SYNTAX
 
 ```
-Add-ArchDataLayer -Parent <Object> [-Title] <String> [-PassThru] [<CommonParameters>]
+Add-ArchDataLayer -Parent <Object> [-Key] <String> [[-Title] <String>] [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,8 +45,8 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Title
-The title of the layer.
+### -Key
+The identifier key of the layer.
 
 ```yaml
 Type: String
@@ -55,6 +55,21 @@ Aliases:
 
 Required: True
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Title
+The title of the layer.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

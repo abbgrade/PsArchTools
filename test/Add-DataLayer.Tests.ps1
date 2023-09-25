@@ -13,9 +13,17 @@ Describe Add-DataLayer {
         }
 
         It works {
-            $Journey | Add-ArchDataLayer -Title bar
+            $Journey | Add-ArchDataLayer -Key bar -Title 'b a r'
             $Journey.Layer.Count | Should -Be 1
-            $Journey.Layer[0].Title | Should -Be bar
+            $Journey.Layer[0].Key | Should -Be bar
+            $Journey.Layer[0].Title | Should -Be 'b a r'
+        }
+
+        It works-by-position {
+            $Journey | Add-ArchDataLayer bar 'b a r'
+            $Journey.Layer.Count | Should -Be 1
+            $Journey.Layer[0].Key | Should -Be bar
+            $Journey.Layer[0].Title | Should -Be 'b a r'
         }
 
     }

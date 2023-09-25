@@ -17,8 +17,13 @@ function Add-DataLayer {
         [ValidateNotNull()]
         $Parent,
 
-        # The title of the layer.
+        # The identifier key of the layer.
         [Parameter(Mandatory, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Key,
+
+        # The title of the layer.
+        [Parameter(Position = 1)]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 
@@ -29,10 +34,14 @@ function Add-DataLayer {
 
     process {
         $layer = [PSCustomObject]@{
-            Title  = $Title
+            Key  = $Key
             Layer  = @()
             Models = @()
             Flows = @()
+        }
+
+        if ( $Title ) {
+            $layer | Add-Member Title $Title
         }
 
         $Parent.Layer += $layer

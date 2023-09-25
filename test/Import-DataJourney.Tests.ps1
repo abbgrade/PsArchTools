@@ -57,7 +57,7 @@ Title: foobar
             Set-Content -Path $ExportPath -Value @'
 Title: foo
 Layer:
- - Title: bar
+ - Key: bar
 '@
         }
 
@@ -66,7 +66,7 @@ Layer:
 
             $Journey.Title | Should -Be foo
             $Journey.Layer.Count | Should -Be 1
-            $Journey.Layer[0].Title | Should -Be bar
+            $Journey.Layer[0].Key | Should -Be bar
 
             $Journey | ConvertTo-ArchDiagram -ErrorAction Stop
         }
