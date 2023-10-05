@@ -119,6 +119,8 @@ function ConvertTo-Diagram {
             journey {
                 $diagram = New-MermaidDiagram -Flowchart -Title $Title -Orientation top-down
 
+                $diagram | Add-MermaidFlowchartClass -Name layer-1 -Style 'fill:#eeeeee'
+                $diagram | Add-MermaidFlowchartClass -Name layer-2 -Style 'fill:#dddddd'
                 $diagram | Add-MermaidFlowchartClass -Name original -Style 'fill:#ffffff,stroke:#555555,stroke-width:4px'
                 $diagram | Add-MermaidFlowchartClass -Name exchange -Style 'fill:#ffe6cc,stroke:#d79b00'
                 $diagram | Add-MermaidFlowchartClass -Name exchange-original -Style 'fill:#ffe6cc,stroke:#d79b00,stroke-width:4px'
@@ -127,7 +129,7 @@ function ConvertTo-Diagram {
                 $diagram | Add-MermaidFlowchartClass -Name retention -Style 'fill:#d5e8d4,stroke:#82b366'
                 $diagram | Add-MermaidFlowchartClass -Name retention-original -Style 'fill:#d5e8d4,stroke:#82b366,stroke-width:4px'
 
-                Convert-DataJourneyLayer -Parent $diagram -Models $Models -Flows $Flows -Layer $Layer
+                Convert-DataJourneyLayer -Parent $diagram -Models $Models -Flows $Flows -Layer $Layer -Depth 1
                 $diagram | ConvertTo-MermaidString | Write-Output
             }
             Default {

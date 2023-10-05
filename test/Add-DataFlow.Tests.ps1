@@ -13,9 +13,9 @@ Describe Add-DataFlow {
         }
 
         It works {
-            $Journey | Add-ArchDataFlow -Title foobar -Source foo -Sink bar
+            $Journey | Add-ArchDataFlow -Key foobar -Source foo -Sink bar
             $Journey.Flows.Count | Should -Be 1
-            $Journey.Flows[0].Title | Should -Be foobar
+            $Journey.Flows[0].Key | Should -Be foobar
             $Journey.Flows[0].Sources | Should -Be foo
             $Journey.Flows[0].Sinks | Should -Be bar
         }
@@ -23,7 +23,7 @@ Describe Add-DataFlow {
         It works-by-position {
             $Journey | Add-ArchDataFlow foobar -Source foo -Sink bar
             $Journey.Flows.Count | Should -Be 1
-            $Journey.Flows[0].Title | Should -Be foobar
+            $Journey.Flows[0].Key | Should -Be foobar
             $Journey.Flows[0].Sources | Should -Be foo
             $Journey.Flows[0].Sinks | Should -Be bar
         }
