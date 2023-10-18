@@ -25,7 +25,7 @@ function Select-DataJourneyLayer {
     process {
 
         # copy layers
-        $Parent.Layer | Where-Object {
+        $Parent.Layer | Where-Object { $_ } | Where-Object {
             ( $_.Key -in $Layer ) -or ( -not $Layer )
          } | ForEach-Object {
             $layerParameter = @{}
@@ -37,7 +37,7 @@ function Select-DataJourneyLayer {
         }
 
         # copy models
-        $Parent.Models | Where-Object {
+        $Parent.Models | Where-Object { $_ } | Where-Object {
             ( $_.Title -in $Model ) -or ( -not $Model )            
         } | ForEach-Object {
             $modelParameter = @{}
