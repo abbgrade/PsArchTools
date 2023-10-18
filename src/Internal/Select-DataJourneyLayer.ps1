@@ -19,12 +19,15 @@ function Select-DataJourneyLayer {
         
         # Layer in the data journey diagram.
         [Parameter()]
-        [string] $Layer
+        [string[]] $Layer
     )
 
     process {
 
-        $Parent.Layer | ForEach-Object {
+        # copy layers
+        $Parent.Layer | Where-Object {
+            ( $_.Key -in $Layer ) -or ( -not $Layer )
+         } | ForEach-Object {
             $layerParameter = @{}
             if ( $_.Title ) {
                 $layerParameter.Title = $_.Title
@@ -33,10 +36,18 @@ function Select-DataJourneyLayer {
             $_ | Select-DataJourneyLayer -Target $layerCopy -Model:$Model -Flow:$Flow -Layer:$Layer
         }
 
-        $Parent.Models | ForEach-Object {
-            $Target | Add-DataModel -Title $_.Title -Class:$_.Class
+        # copy models
+        $Parent.Models | Where-Object {
+            ( $_.Title -in $Model ) -or ( -not $Model )            
+        } | ForEach-Object {
+            $modelParameter = @{}
+            if ( $_.Class ) {
+                $modelParameter.Class = $_.Class
+            }
+            $Target | Add-DataModel -Title $_.Title @modelParameter
         }
 
+        # copy flows
         $Parent.Flows | Where-Object { 
             ( $_.Key -in $Flow ) -or ( -not $Flow )
         } | ForEach-Object {

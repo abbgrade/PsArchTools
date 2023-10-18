@@ -32,11 +32,14 @@ Describe Select-DataJourney {
         }
 
         It works {
-            $SubJourney = $Journey | Select-ArchDataJourney -Flow fry
+            $SubJourney = $Journey | Select-ArchDataJourney -Flow fry -ErrorAction Stop
             $SubJourney.Layer.Count | Should -Be 1
             $SubJourney.Layer[0].Key | Should -Be diner
             $SubJourney.Layer[0].Flows.Count | Should -Be 1
             $SubJourney.Layer[0].Flows[0].Key | Should -Be fry
+            $SubJourney.Layer[0].Layer.Count | Should -Be 2
+            $SubJourney.Layer[0].Layer[0].Models.Count | Should -Be 3
+            $SubJourney.Layer[0].Layer[1].Models.Count | Should -Be 1
         }
     }
 

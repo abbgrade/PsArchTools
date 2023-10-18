@@ -1,5 +1,15 @@
 function Select-DataJourney {
 
+    <#
+
+    .SYNOPSIS
+    Select from a data journey.
+
+    .DESCRIPTION
+    Return a copy of a data journey and apply filter on it.
+    
+    #>
+
     [CmdletBinding()]
     param (
         # Data journey to select from.
@@ -20,14 +30,44 @@ function Select-DataJourney {
     )
 
     process {
-        $selectedJourney = New-DataJourney -Title:$Journey.Title
 
+        # filter data flows
+        $selectedFlowsJourney = New-DataJourney -Title:$Journey.Title
         $Journey | Select-DataJourneyLayer `
-            -Target $selectedJourney `
-            -Model:$Model `
-            -Flow:$Flow `
-            -Layer:$Layer `
+            -Target $selectedFlowsJourney `
+            -Flow:$Flow
 
-        $selectedJourney | Write-Output
+        # prepare model filter
+        $transitiveModels = $selectedFlowsJourney | 
+            Get-DataFlow -Recurse | 
+            ForEach-Object {
+                $_.Sources | ForEach-Object { $_ }
+                $_.Sinks | ForEach-Object { $_ }
+            }
+        [string[]] $modelFilter = ( $transitiveModels + $Model) | Where-Object { $_ }
+        
+        # filter models
+        $selectedModelsJourney = New-DataJourney -Title:$Journey.Title
+        $selectedFlowsJourney | Select-DataJourneyLayer `
+            -Target $selectedModelsJourney `
+            -Model:$modelFilter
+        
+        # prepare layer filter
+        $transitiveLayer = $selectedModelsJourney | 
+            Get-DataLayer -Recurse | 
+            Where-Object {
+                $_.Layer -or $_.Models
+            } | Where-Object Key | Select-Object -ExpandProperty Key
+        [string[]] $layerFilter = ( $transitiveLayer + $Layer) | Where-Object { $_ }
+
+        # filter layer
+        $selectedLayerJourney = New-DataJourney -Title:$Journey.Title
+        $selectedModelsJourney | Select-DataJourneyLayer `
+            -Target $selectedLayerJourney `
+            -Model:$modelFilter `
+            -Layer:$layerFilter
+
+        # return output
+        $selectedLayerJourney | Write-Output
     }
 }
