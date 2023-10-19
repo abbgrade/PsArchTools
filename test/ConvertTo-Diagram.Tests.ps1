@@ -65,4 +65,113 @@ flowchart LR
         }
     }
 
+    Context DataJourney {
+
+        BeforeAll {
+            $Journey = New-ArchDataJourney 'Diagram Title'
+            $Diner = $Journey | Add-ArchDataLayer diner -PassThru
+
+            $Bronze = $Diner | Add-ArchDataLayer bronze -PassThru
+            $Bronze | Add-ArchDataModel milk exchange
+            $Bronze | Add-ArchDataModel yeast exchange
+            $Bronze | Add-ArchDataModel flour exchange
+            $Bronze | Add-ArchDataModel beef exchange-original
+
+            $Silver = $Diner | Add-ArchDataLayer silver -PassThru
+            $Silver | Add-ArchDataModel cheese retention-original
+            $Diner | Add-ArchDataFlow making-cheese 'making cheese' -Sink cheese -Source milk, yeast
+            $Silver | Add-ArchDataModel bun retention-original
+            $Diner | Add-ArchDataFlow bake -Sink bun -Source flour, yeast
+            $Silver | Add-ArchDataModel patty retention
+            $Diner | Add-ArchDataFlow form -Sink patty -Source beef
+
+            $Gold = $Diner | Add-ArchDataLayer gold -PassThru
+            $Gold | Add-ArchDataModel burger analysis
+            $Diner | Add-ArchDataFlow fry -Sink burger -Source bun, patty, cheese
+        }
+
+        It works {
+            $Journey | ConvertTo-ArchDiagram | Should -Be @'
+---
+title: Diagram Title
+---
+flowchart TD
+    classDef layer-1 fill:#eeeeee
+    classDef layer-2 fill:#dddddd
+    classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
+    classDef exchange fill:#ffe6cc,stroke:#d79b00
+    classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px
+    classDef analysis fill:#e1d5e7,stroke:#9673a6
+    classDef analysis-original fill:#e1d5e7,stroke:#9673a6,stroke-width:4px
+    classDef retention fill:#d5e8d4,stroke:#82b366
+    classDef retention-original fill:#d5e8d4,stroke:#82b366,stroke-width:4px
+    diner:::layer-1
+    subgraph diner
+        making-cheese{making cheese}
+        bake{bake}
+        form{form}
+        fry{fry}
+        bronze:::layer-2
+        silver:::layer-2
+        gold:::layer-2
+        milk --> making-cheese
+        yeast --> making-cheese
+        making-cheese --> cheese
+        flour --> bake
+        yeast --> bake
+        bake --> bun
+        beef --> form
+        form --> patty
+        bun --> fry
+        patty --> fry
+        cheese --> fry
+        fry --> burger
+        subgraph bronze
+            milk[(milk)]:::exchange
+            yeast[(yeast)]:::exchange
+            flour[(flour)]:::exchange
+            beef[(beef)]:::exchange-original
+        end
+        subgraph silver
+            cheese[(cheese)]:::retention-original
+            bun[(bun)]:::retention-original
+            patty[(patty)]:::retention
+        end
+        subgraph gold
+            burger[(burger)]:::analysis
+        end
+    end
+'@
+        }
+    }
+
+    Context EmptyDataJourney {
+
+        BeforeAll {
+            $Journey = [PSCustomObject]( @"
+Title: foobar
+Layer: []
+Models: []
+Flows: []
+"@ | ConvertFrom-Yaml )
+        }
+
+        It works {
+            $Journey | ConvertTo-ArchDiagram| Should -Be @'
+---
+title: foobar
+---
+flowchart TD
+    classDef layer-1 fill:#eeeeee
+    classDef layer-2 fill:#dddddd
+    classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
+    classDef exchange fill:#ffe6cc,stroke:#d79b00
+    classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px
+    classDef analysis fill:#e1d5e7,stroke:#9673a6
+    classDef analysis-original fill:#e1d5e7,stroke:#9673a6,stroke-width:4px
+    classDef retention fill:#d5e8d4,stroke:#82b366
+    classDef retention-original fill:#d5e8d4,stroke:#82b366,stroke-width:4px
+'@
+        }
+    }
 }

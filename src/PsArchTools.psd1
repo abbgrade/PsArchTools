@@ -12,7 +12,7 @@
 RootModule = 'PsArchTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.2.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -53,7 +53,7 @@ Description = 'Tools to support software architects.'
 # Modules that must be imported into the global environment prior to importing this module
 RequiredModules = @(@{
     ModuleName = 'PsMermaidTools'
-    ModuleVersion = '0.4.0'
+    ModuleVersion = '0.5.0'
 })
 
 # Assemblies that must be loaded prior to importing this module

@@ -23,12 +23,13 @@ function Add-Feature {
         $Roadmap,
 
         # The identifier of the feature. E.g. the ticket number.
-        [Parameter(Mandatory, Position=0)]
+        [Parameter(Mandatory, Position = 0)]
         [ValidateNotNullOrEmpty()]
+        [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
         [string] $Id,
 
         # The title of the feature.
-        [Parameter(Mandatory, Position=1)]
+        [Parameter(Mandatory, Position = 1)]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 

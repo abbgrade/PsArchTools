@@ -6,7 +6,7 @@ Describe Add-Milestone {
         Import-Module $PSScriptRoot\..\src\PsArchTools.psd1 -Force -ErrorAction Stop
     }
 
-    Context Rodamap {
+    Context Roadmap {
 
         BeforeEach {
             $Roadmap = New-ArchRoadmap -Title foobar
