@@ -39,11 +39,11 @@ function Select-DataJourney {
 
         # prepare model filter
         $transitiveModels = $selectedFlowsJourney | 
-            Get-DataFlow -Recurse | 
-            ForEach-Object {
-                $_.Sources | ForEach-Object { $_ }
-                $_.Sinks | ForEach-Object { $_ }
-            }
+        Get-DataFlow -Recurse | 
+        ForEach-Object {
+            $_.Sources | ForEach-Object { $_ }
+            $_.Sinks | ForEach-Object { $_ }
+        }
         [string[]] $modelFilter = ( $transitiveModels + $Model) | Where-Object { $_ }
         
         # filter models
@@ -54,10 +54,10 @@ function Select-DataJourney {
         
         # prepare layer filter
         $transitiveLayer = $selectedModelsJourney | 
-            Get-DataLayer -Recurse | 
-            Where-Object {
-                $_.Layer -or $_.Models
-            } | Where-Object Key | Select-Object -ExpandProperty Key
+        Get-DataLayer -Recurse | 
+        Where-Object {
+            $_.Layer -or $_.Models
+        } | Where-Object Key | Select-Object -ExpandProperty Key
         [string[]] $layerFilter = ( $transitiveLayer + $Layer) | Where-Object { $_ }
 
         # filter layer
