@@ -79,7 +79,7 @@ flowchart LR
 
             $Silver = $Diner | Add-ArchDataLayer silver -PassThru
             $Silver | Add-ArchDataModel cheese retention-original
-            $Diner | Add-ArchDataFlow making-cheese -Sink cheese -Source milk, yeast
+            $Diner | Add-ArchDataFlow making-cheese 'making cheese' -Sink cheese -Source milk, yeast
             $Silver | Add-ArchDataModel bun retention-original
             $Diner | Add-ArchDataFlow bake -Sink bun -Source flour, yeast
             $Silver | Add-ArchDataModel patty retention
@@ -96,6 +96,8 @@ flowchart LR
 title: Diagram Title
 ---
 flowchart TD
+    classDef layer-1 fill:#eeeeee
+    classDef layer-2 fill:#dddddd
     classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
     classDef exchange fill:#ffe6cc,stroke:#d79b00
     classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px
@@ -103,11 +105,15 @@ flowchart TD
     classDef analysis-original fill:#e1d5e7,stroke:#9673a6,stroke-width:4px
     classDef retention fill:#d5e8d4,stroke:#82b366
     classDef retention-original fill:#d5e8d4,stroke:#82b366,stroke-width:4px
+    diner:::layer-1
     subgraph diner
-        making-cheese{making-cheese}
+        making-cheese{making cheese}
         bake{bake}
         form{form}
         fry{fry}
+        bronze:::layer-2
+        silver:::layer-2
+        gold:::layer-2
         milk --> making-cheese
         yeast --> making-cheese
         making-cheese --> cheese
@@ -156,6 +162,8 @@ Flows: []
 title: foobar
 ---
 flowchart TD
+    classDef layer-1 fill:#eeeeee
+    classDef layer-2 fill:#dddddd
     classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
     classDef exchange fill:#ffe6cc,stroke:#d79b00
     classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px

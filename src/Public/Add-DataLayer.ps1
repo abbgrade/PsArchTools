@@ -20,6 +20,7 @@ function Add-DataLayer {
         # The identifier key of the layer.
         [Parameter(Mandatory, Position = 0)]
         [ValidateNotNullOrEmpty()]
+        [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
         [string] $Key,
 
         # The title of the layer.

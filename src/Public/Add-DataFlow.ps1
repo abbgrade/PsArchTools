@@ -18,8 +18,14 @@ function Add-DataFlow {
         [ValidateNotNull()]
         $Journey,
 
-        # The title of the data flow.
+        # The identifier key of the data flow.
         [Parameter(Mandatory, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
+        [string] $Key,
+
+        # The title of the data flow.
+        [Parameter(Position = 1)]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 
@@ -36,9 +42,13 @@ function Add-DataFlow {
 
     process {
         $flow = [PSCustomObject]@{
-            Title = $Title
+            Key = $Key
             Sources = $Source
             Sinks = $Sink
+        }
+
+        if ( $Title ) {
+            $flow | Add-Member Title $Title
         }
 
         $Journey.Flows += $flow

@@ -5,21 +5,19 @@ online version:
 schema: 2.0.0
 ---
 
-# Add-ArchDataFlow
+# Set-ArchDataJourney
 
 ## SYNOPSIS
-Adds a new data flow to a data journey.
+Change a data journey.
 
 ## SYNTAX
 
 ```
-Add-ArchDataFlow -Journey <Object> [-Key] <String> [[-Title] <String>] -Source <String[]> -Sink <String[]>
- [<CommonParameters>]
+Set-ArchDataJourney [-Journey] <PSObject> [[-Title] <String>] [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates and adds a data flow to a data journey. 
-If the source or the sink models are not defined, they will be created implicitly.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -33,37 +31,22 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Journey
-The data journey, the data flow is added to.
+Data journey to select from.
 
 ```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Key
-The identifier key of the data flow.
-
-```yaml
-Type: String
+Type: PSObject
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
 ### -Title
-The title of the data flow.
+If present, change the title to this value.
 
 ```yaml
 Type: String
@@ -77,33 +60,18 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Source
-The source models of tha data flow
+### -PassThru
+{{ Fill PassThru Description }}
 
 ```yaml
-Type: String[]
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Sink
-The sink models of tha data flow
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
+Default value: False
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

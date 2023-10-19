@@ -15,18 +15,30 @@ function Convert-DataJourneyLayer {
         
         [Parameter()]
         [ValidateNotNull()]
-        [PSCustomObject[]] $Flows
+        [PSCustomObject[]] $Flows,
+        
+        [Parameter()]
+        [int] $Depth
     )
 
     process {
         $Models | ForEach-Object {
-            $Parent | Add-MermaidFlowchartNode $_.Title -Shape cylindrical -Class:$_.Class
+            $Parent | Add-MermaidFlowchartNode -Key $_.Title -Shape cylindrical -Class:$_.Class
         }
 
         $Flows | ForEach-Object {
             $flow = $_
-            $flowId = $_.Title
-            $Parent | Add-MermaidFlowchartNode $flowId -Shape rhombus
+            $flowId = $_.Key
+            
+            $flowParameter = @{
+                Key = $flowId
+            }
+
+            if ( $_.Title ) {
+                $flowParameter.Text = $_.Title
+            }
+
+            $Parent | Add-MermaidFlowchartNode @flowParameter -Shape rhombus
             $flow.Sources | ForEach-Object {
                 $Parent | Add-MermaidFlowchartLink -Source $_ -Destination $flowId
             }
@@ -36,12 +48,21 @@ function Convert-DataJourneyLayer {
         }
 
         $Layer | ForEach-Object {
-            $subgraph = $Parent | Add-MermaidFlowchartSubgraph -Key $_.Key -PassThru
+            $subgraphParameter = @{}
+
+            if ( $_.Title ) {
+                $subgraphParameter.Title = $_.Title
+            }
+
+            $subgraph = $Parent | Add-MermaidFlowchartSubgraph -Key $_.Key -PassThru @subgraphParameter
             Convert-DataJourneyLayer `
                 -Parent $subgraph `
                 -Models ( $_.Models ? $_.Models : @() ) `
                 -Flows ( $_.Flows ? $_.Flows : @() ) `
-                -Layer ( $_.Layer ? $_.Layer : @() )
+                -Layer ( $_.Layer ? $_.Layer : @() ) `
+                -Depth ( $Depth + 1 )
+
+            $Parent | Add-MermaidFlowchartNode -Key $_.Key -Class "layer-$Depth"
         }
 
     }

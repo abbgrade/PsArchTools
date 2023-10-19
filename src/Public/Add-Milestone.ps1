@@ -25,6 +25,7 @@ function Add-Milestone {
         # The identifier of the milestone. E.g. the ticket number.
         [Parameter(Mandatory, Position = 0)]
         [ValidateNotNullOrEmpty()]
+        [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
         [string] $Id,
 
         # The title of the milestone.

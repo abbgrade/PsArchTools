@@ -5,21 +5,20 @@ online version:
 schema: 2.0.0
 ---
 
-# Add-ArchDataFlow
+# Select-ArchDataJourney
 
 ## SYNOPSIS
-Adds a new data flow to a data journey.
+Select from a data journey.
 
 ## SYNTAX
 
 ```
-Add-ArchDataFlow -Journey <Object> [-Key] <String> [[-Title] <String>] -Source <String[]> -Sink <String[]>
+Select-ArchDataJourney [-Journey] <PSObject> [[-Model] <String[]>] [[-Flow] <String[]>] [[-Layer] <String>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates and adds a data flow to a data journey. 
-If the source or the sink models are not defined, they will be created implicitly.
+Return a copy of a data journey and apply filter on it.
 
 ## EXAMPLES
 
@@ -33,40 +32,25 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Journey
-The data journey, the data flow is added to.
+Data journey to select from.
 
 ```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Key
-The identifier key of the data flow.
-
-```yaml
-Type: String
+Type: PSObject
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Title
-The title of the data flow.
+### -Model
+Models in the data journey diagram.
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -77,33 +61,33 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Source
-The source models of tha data flow
+### -Flow
+Flows in the data journey diagram.
 
 ```yaml
 Type: String[]
 Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: Named
+Required: False
+Position: 3
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Sink
-The sink models of tha data flow
+### -Layer
+Layer in the data journey diagram.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: Named
+Required: False
+Position: 4
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
