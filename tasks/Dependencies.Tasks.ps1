@@ -1,5 +1,5 @@
 task InstallBuildDependencies {
-    Install-Module PsMermaidTools, platyPs
+    Install-Module PsMermaidTools, platyPs, powershell-yaml
 }
 
 task InstallTestDependencies {
