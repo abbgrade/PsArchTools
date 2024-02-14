@@ -51,9 +51,13 @@ Description = 'Tools to support software architects.'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{
+RequiredModules = @(
+    @{
     ModuleName = 'PsMermaidTools'
     ModuleVersion = '0.5.0'
+}, @{
+    ModuleName = 'powershell-yaml'
+    ModuleVersion = '0.4.7'
 })
 
 # Assemblies that must be loaded prior to importing this module
