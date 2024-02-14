@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [0.3.0] - 2024-02-14
+
 - new command `Add-FeatureState` for feature styling by state.
 
 ## [0.2.0] - 2023-10-19
