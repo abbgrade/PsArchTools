@@ -13,8 +13,8 @@ Adds a new feature to a roadmap.
 ## SYNTAX
 
 ```
-Add-ArchFeature -Roadmap <Object> [-Id] <String> [-Title] <String> [-Link <String>] [-DependsOn <String[]>]
- [-PassThru] [<CommonParameters>]
+Add-ArchFeature -Roadmap <Object> [-Id] <String> [-Title] <String> [-Link <String>] [-State <String>]
+ [-DependsOn <String[]>] [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -79,6 +79,21 @@ Accept wildcard characters: False
 
 ### -Link
 A link to the feature in the agile board.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -State
+The state of the feature in the agile board.
 
 ```yaml
 Type: String

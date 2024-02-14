@@ -10,8 +10,12 @@ Describe ConvertTo-Diagram {
 
         BeforeAll {
             $Roadmap = New-ArchRoadmap 'Diagram Title'
-            $Roadmap | Add-ArchFeature A 'do this' -Link 'https://www.github.com'
-            $Roadmap | Add-ArchFeature B 'do that' -Link 'https://www.github.com' -DependsOn A
+            $Roadmap | Add-ArchFeatureState -Style 'fill:#e0f1e1'
+            $Roadmap | Add-ArchFeatureState -State Done -Style 'fill:#68ba6a'
+            $Roadmap | Add-ArchFeatureState -State InProgress -Style 'fill:#86c787'
+            $Roadmap | Add-ArchFeature A 'do this' -Link 'https://www.github.com' -State Done
+            $Roadmap | Add-ArchFeature B 'do that' -Link 'https://www.github.com' -DependsOn A -State InProgress
+            $Roadmap | Add-ArchFeature C 'do nothing' -DependsOn B
         }
 
         It works {
@@ -20,13 +24,17 @@ Describe ConvertTo-Diagram {
 title: Diagram Title
 ---
 flowchart LR
-    classDef feature fill:#ffcc5c
+    classDef feature fill:#e0f1e1
+    classDef feature_Done fill:#68ba6a
+    classDef feature_InProgress fill:#86c787
     classDef milestone fill:#96ceb4
-    A["do this"]:::feature
-    B["do that"]:::feature
+    A["do this"]:::feature_Done
+    B["do that"]:::feature_InProgress
+    C["do nothing"]:::feature
     click A "https://www.github.com" _blank
     click B "https://www.github.com" _blank
     A --> B
+    B --> C
 '@
         }
     }

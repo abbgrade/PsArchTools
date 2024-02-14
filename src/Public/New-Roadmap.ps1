@@ -28,6 +28,7 @@ function New-Roadmap {
             Title      = $Title
             Features   = @()
             Milestones = @()
+            FeatureStates = @{ '' = 'fill:#ffcc5c' }
         }
     }
 
