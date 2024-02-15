@@ -19,9 +19,9 @@ task Import -Jobs {
     Import-Module $SourceManifest -Force
 }
 
-# Synopsis: Import platyPs.
-task Import.platyPs -Jobs {
-	Import-Module platyPs
+# Synopsis: Import platyPS.
+task Import.platyPS -Jobs {
+	Import-Module platyPS
 }
 
 # Synopsis: Initialize the documentation directory.
@@ -30,12 +30,12 @@ task Doc.Init.Directory -If { $DocumentationDirectory.Exists -eq $false} -Jobs {
 }
 
 # Synopsis: Initialize the documentation.
-task Doc.Init -Jobs Import, Import.platyPs, Doc.Init.Directory, {
+task Doc.Init -Jobs Import, Import.platyPS, Doc.Init.Directory, {
     New-MarkdownHelp -Module $ModuleName -OutputFolder $DocumentationDirectory -Force:$ForceDocInit -ErrorAction Continue
 }
 
 # Synopsis: Update the markdown documentation.
-task Doc.Update -Jobs Import, Import.platyPs, Doc.Init, {
+task Doc.Update -Jobs Import, Import.platyPS, Doc.Init, {
     Update-MarkdownHelp -Path $DocumentationDirectory
 }
 
