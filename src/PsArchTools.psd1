@@ -56,8 +56,8 @@ RequiredModules = @(
     ModuleName = 'PsMermaidTools'
     ModuleVersion = '0.5.0'
 }, @{
-    ModuleName = 'powershell-yaml'
-    ModuleVersion = '0.4.7'
+    ModuleName = 'Yayaml'
+    ModuleVersion = '0.3.0'
 })
 
 # Assemblies that must be loaded prior to importing this module
