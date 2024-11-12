@@ -7,5 +7,5 @@ task InstallTestDependencies {
 }
 
 task InstallReleaseDependencies {
-    Install-Module PsMermaidTools
+    Install-Module PsMermaidTools, Yayaml
 }
