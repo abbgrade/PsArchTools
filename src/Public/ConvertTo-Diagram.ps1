@@ -104,7 +104,7 @@ function ConvertTo-Diagram {
 
                     $diagram | Add-MermaidFlowchartNode `
                         -Key $node.Id `
-                        -Name ('"' + $node.Title + '"') `
+                        -Name ('"' + $node.Title.Replace('"', '') + '"') `
                         -Class $class
         
                     if ( $node.Link ) {
