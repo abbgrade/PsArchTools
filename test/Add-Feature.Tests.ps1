@@ -20,6 +20,14 @@ Describe Add-Feature {
             $Roadmap.Features[0].Link | Should -Be https://localhost
         }
 
+        It works-with-optional-parameters {
+            $Roadmap | Add-ArchFeature -Id 4711 -Title foobar -State InProgress
+            $Roadmap.Features.Count | Should -Be 1
+            $Roadmap.Features[0].Id | Should -Be 4711
+            $Roadmap.Features[0].Title | Should -Be foobar
+            $Roadmap.Features[0].State | Should -Be InProgress
+        }
+
         It works-by-position {
             $Roadmap | Add-ArchFeature 4711 foobar -Link https://localhost
             $Roadmap.Features.Count | Should -Be 1

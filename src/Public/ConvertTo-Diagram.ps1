@@ -51,6 +51,11 @@ function ConvertTo-Diagram {
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
         [ValidateNotNull()]
         [PSCustomObject[]] $Milestones,
+
+        # Feature states in the roadmap diagram.
+        [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
+        [ValidateNotNull()]
+        [hashtable] $FeatureStates,
         
         # Models in the data journey diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
@@ -72,15 +77,35 @@ function ConvertTo-Diagram {
         switch ($PSCmdlet.ParameterSetName) {
             roadmap {
                 $diagram = New-MermaidDiagram -Flowchart -Title $Title -Orientation left-to-right
-                $diagram | Add-MermaidFlowchartClass -Name feature -Style 'fill:#ffcc5c'
+                $FeatureStates.GetEnumerator() | Sort-Object Key | ForEach-Object {
+                    switch ( $_.Key ) {
+                        '' {
+                            $diagram | Add-MermaidFlowchartClass -Name feature -Style $FeatureStates['']
+                        }
+                        default {
+                            $diagram | Add-MermaidFlowchartClass -Name "feature_$_" -Style $FeatureStates[$_]
+                        }
+                    }                    
+                }
                 $diagram | Add-MermaidFlowchartClass -Name milestone -Style 'fill:#96ceb4'
 
                 $Features | ForEach-Object {
                     $node = [PSCustomObject] $_
+                    if ($_ | Get-Member State) {
+                        $class = "feature_$( $_.State )"
+
+                        if ( -not $FeatureStates.Keys -contains $_.State ) {
+                            Write-Warning "ignore unsupported state '$( $_.State )'"
+                            $class = 'feature'
+                        }
+                    } else {
+                        $class = 'feature'
+                    }
+
                     $diagram | Add-MermaidFlowchartNode `
                         -Key $node.Id `
-                        -Name ('"' + $node.Title + '"') `
-                        -Class feature
+                        -Name ('"' + $node.Title.Replace('"', '') + '"') `
+                        -Class $class
         
                     if ( $node.Link ) {
                         $diagram | Add-MermaidFlowchartClick `

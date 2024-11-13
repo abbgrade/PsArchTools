@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-11-12
+
+### Added
+
+- new command `Add-FeatureState` for feature styling by state.
+
+### Fixed
+
+- added feature name escaping.
+
+### Changed
+
+- replaced `powershell-yaml` by `Yayaml`.
+
 ## [0.2.0] - 2023-10-19
 
 ### Added

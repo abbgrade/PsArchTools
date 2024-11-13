@@ -1,5 +1,5 @@
 task InstallBuildDependencies {
-    Install-Module PsMermaidTools, platyPs
+    Install-Module PsMermaidTools, platyPS, Yayaml
 }
 
 task InstallTestDependencies {
@@ -7,5 +7,5 @@ task InstallTestDependencies {
 }
 
 task InstallReleaseDependencies {
-    Install-Module PsMermaidTools
+    Install-Module PsMermaidTools, Yayaml
 }

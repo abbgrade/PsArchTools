@@ -23,6 +23,6 @@ function Export-DataJourney {
     )
 
     process {
-        ConvertTo-Yaml -Data $DataJourney -OutFile $Path
+        $DataJourney | ConvertTo-Yaml | Out-File $Path
     }
 }

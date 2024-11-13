@@ -38,6 +38,10 @@ function Add-Feature {
         [ValidateNotNullOrEmpty()]
         [string] $Link,
 
+        # The state of the feature in the agile board.
+        [Parameter()]
+        [string] $State,
+
         # Features or milestones that must be completed, before the feature can be implemented.
         [Parameter()]
         [string[]] $DependsOn,
@@ -55,6 +59,10 @@ function Add-Feature {
 
         if ( $Link ) {
             $feature | Add-Member Link $Link
+        }
+
+        if ( $State ) {
+            $feature | Add-Member State $State
         }
 
         if ( $DependsOn ) {

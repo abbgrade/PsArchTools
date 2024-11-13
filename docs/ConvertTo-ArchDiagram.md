@@ -20,7 +20,8 @@ ConvertTo-ArchDiagram -Title <String> [-Models <PSObject[]>] [-Flows <PSObject[]
 
 ### roadmap
 ```
-ConvertTo-ArchDiagram -Title <String> [-Features <PSObject[]>] [-Milestones <PSObject[]>] [<CommonParameters>]
+ConvertTo-ArchDiagram -Title <String> [-Features <PSObject[]>] [-Milestones <PSObject[]>]
+ [-FeatureStates <Hashtable>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -93,6 +94,21 @@ Milestones in the roadmap diagram.
 
 ```yaml
 Type: PSObject[]
+Parameter Sets: roadmap
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -FeatureStates
+Feature states in the roadmap diagram.
+
+```yaml
+Type: Hashtable
 Parameter Sets: roadmap
 Aliases:
 
