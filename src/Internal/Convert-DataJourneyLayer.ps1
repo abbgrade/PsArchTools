@@ -38,7 +38,7 @@ function Convert-DataJourneyLayer {
                 $flowParameter.Text = $_.Title
             }
 
-            $Parent | Add-MermaidFlowchartNode @flowParameter -Shape rhombus
+            $Parent | Add-MermaidFlowchartNode @flowParameter -Shape subroutine
             $flow.Sources | ForEach-Object {
                 $Parent | Add-MermaidFlowchartLink -Source $_ -Destination $flowId
             }
