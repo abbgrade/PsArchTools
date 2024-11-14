@@ -13,7 +13,7 @@ Adds a new data model to a data journey.
 ## SYNTAX
 
 ```
-Add-ArchDataModel -Journey <Object> [-Title] <String> [[-Class] <String>] [-PassThru] [<CommonParameters>]
+Add-ArchDataModel -Journey <Object> [-Key <String>] [-Title] <String> [[-Class] <String>] [-PassThru]
 ```
 
 ## DESCRIPTION
@@ -42,6 +42,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Key
+The identifier key of the data model.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: $Title
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

@@ -77,13 +77,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Source
+### -Sources
 The source models of tha data flow
 
 ```yaml
 Type: String[]
 Parameter Sets: (All)
-Aliases:
+Aliases: Source
 
 Required: True
 Position: Named
@@ -92,13 +92,13 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Sink
+### -Sinks
 The sink models of tha data flow
 
 ```yaml
 Type: String[]
 Parameter Sets: (All)
-Aliases:
+Aliases: Sink
 
 Required: True
 Position: Named

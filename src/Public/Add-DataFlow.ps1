@@ -32,24 +32,18 @@ function Add-DataFlow {
         # The source models of tha data flow
         [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string[]] $Source,
+        [Alias('Source')]
+        [string[]] $Sources,
 
         # The sink models of tha data flow
         [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string[]] $Sink
+        [Alias('Sink')]
+        [string[]] $Sinks
     )
 
     process {
-        $flow = [PSCustomObject]@{
-            Key = $Key
-            Sources = $Source
-            Sinks = $Sink
-        }
-
-        if ( $Title ) {
-            $flow | Add-Member Title $Title
-        }
+        $flow = New-DataFlow -Key:$Key -Title:$Title -Sources:$Sources -Sinks:$Sinks
 
         $Journey.Flows += $flow
 

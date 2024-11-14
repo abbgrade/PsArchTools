@@ -17,6 +17,11 @@ function Add-DataModel {
         [ValidateNotNull()]
         $Journey,
 
+        # The identifier key of the data model.
+        [Parameter()]
+        [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
+        [string] $Key = $Title,
+
         # The title of the data model.
         [Parameter(Mandatory, Position = 0)]
         [ValidateNotNullOrEmpty()]
@@ -34,13 +39,7 @@ function Add-DataModel {
     )
 
     process {
-        $model = [PSCustomObject]@{
-            Title = $Title
-        }
-
-        if ( $Class ) {
-            $model | Add-Member Class $Class
-        }
+        $model = New-DataModel -Key:$Key -Title:$Title -Class:$Class
 
         $Journey.Models += $model
 
