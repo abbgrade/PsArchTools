@@ -1,20 +1,20 @@
-function New-DataModel {    
-    
+function New-DataModel {
+
     [CmdletBinding()]
     param (
         # The identifier key of the data model.
-        [Parameter(Position = 0)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
         [string] $Key,
-        
+
         # The title of the data model.
-        [Parameter(Mandatory, Position = 0, ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 
         # The class of the data model.
-        [Parameter(Position = 1, ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateSet('', 'original', 'exchange', 'exchange-original', 'analysis', 'analysis-original', 'retention', 'retention-original')]
         [string] $Class
     )

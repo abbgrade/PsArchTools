@@ -54,6 +54,6 @@ function Export-DataJourney {
             default {
                 Write-Error "ParameterSetName '$_' not supported"
             }
-        }        
+        }
     }
 }

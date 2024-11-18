@@ -12,26 +12,31 @@ function Add-DataModel {
     
     [CmdletBinding()]
     param (
-        # The data journey, the data model is added to.
+        # The data journey or layer, the data model is added to.
         [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateNotNull()]
-        $Journey,
+        [Alias('Journey')]
+        $Parent,
 
         # The identifier key of the data model.
-        [Parameter()]
+        [Parameter(ParameterSetName = 'Properties' )]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
         [string] $Key = $Title,
 
         # The title of the data model.
-        [Parameter(Mandatory, Position = 0)]
+        [Parameter(Mandatory, Position = 0, ParameterSetName = 'Properties')]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 
         # The class of the data model.
-        [Parameter(Position = 1)]
+        [Parameter(Position = 1, ParameterSetName = 'Properties')]
         [ValidateNotNullOrEmpty()]
         [ValidateSet('original', 'exchange', 'exchange-original', 'analysis', 'analysis-original', 'retention', 'retention-original')]
         [string] $Class,
+
+        # The data model is added to the data journey.
+        [Parameter( Mandatory, ParameterSetName = 'InputObject' )]
+        [PSCustomObject] $InputObject,
 
         # Switch that specifies, if the model should be returned instead of only added to the data journey.
         [Parameter()]
@@ -39,12 +44,21 @@ function Add-DataModel {
     )
 
     process {
-        $model = New-DataModel -Key:$Key -Title:$Title -Class:$Class
+        switch ($PsCmdlet.ParameterSetName) {
+            Properties {
+                $InputObject = New-DataModel -Key:$Key -Title:$Title -Class:$Class
+            }
+            InputObject {
+            }
+            default {
+                Write-Error "ParameterSetName '$_' not supported"
+            }
+        }
 
-        $Journey.Models += $model
+        $Parent.Models += $InputObject
 
         if ( $PassThru.IsPresent ) {
-            Write-Output $model
+            Write-Output $InputObject
         }
     }
 }

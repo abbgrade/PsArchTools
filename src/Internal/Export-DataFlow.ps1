@@ -1,5 +1,5 @@
 function Export-DataFlow {
-    
+
     [CmdletBinding()]
     param (
         # The path of the directory, where that export files should be created.
@@ -8,13 +8,13 @@ function Export-DataFlow {
         [System.IO.DirectoryInfo] $ParentDirectory,
 
         # The identifier key of the data flow.
-        [Parameter(Mandatory, Position = 0, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
         [string] $Key,
 
         # The title of the data flow.
-        [Parameter(Position = 1, ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 

@@ -6,7 +6,7 @@ function Export-DataLayer {
         [Parameter( Mandatory )]
         [ValidateScript({ $_.Exists })]
         [System.IO.DirectoryInfo] $ParentDirectory,
-    
+
         # The key of the data layer that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
         [ValidateNotNullOrEmpty()]
@@ -24,11 +24,11 @@ function Export-DataLayer {
         # The models of the data layer that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
         [PsObject[]] $Models,
-        
+
         # The sub layer of the data layer that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
         [PsObject[]] $Layer,
-        
+
         # The flows of data layer that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
         [PsObject[]] $Flows
@@ -54,7 +54,7 @@ function Export-DataLayer {
             }
             $Models | Export-DataModel -ParentDirectory $ModelDirectory
         }
-        
+
         if ( $Layer ) {
             [System.IO.DirectoryInfo] $LayerDirectory = Join-Path $Directory layer
             if ( -not $LayerDirectory.Exists ) {
@@ -62,7 +62,7 @@ function Export-DataLayer {
             }
             $Layer | Export-DataLayer -ParentDirectory $LayerDirectory -LayerType layer
         }
-        
+
         if ( $Flows ) {
             [System.IO.DirectoryInfo] $FlowsDirectory = Join-Path $Directory flows
             if ( -not $FlowsDirectory.Exists ) {
@@ -73,7 +73,7 @@ function Export-DataLayer {
 
         $Header = @{}
 
-        if ( $Title ) {            
+        if ( $Title ) {
             $Header.Title = $Title
         }
 

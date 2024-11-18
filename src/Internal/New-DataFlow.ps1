@@ -1,24 +1,24 @@
-function New-DataFlow {    
-    
+function New-DataFlow {
+
     [CmdletBinding()]
     param (
         # The identifier key of the data flow.
-        [Parameter(Position = 0, ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
         [string] $Key,
 
         # The title of the data flow.
-        [Parameter(Position = 1, ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string] $Title,
 
         # The source models of tha data flow
-        [Parameter(ValueFromPipeline, Mandatory, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [string[]] $Sources,
 
         # The sink models of tha data flow
-        [Parameter(ValueFromPipeline, Mandatory, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [string[]] $Sinks
     )

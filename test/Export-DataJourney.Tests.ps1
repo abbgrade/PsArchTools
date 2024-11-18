@@ -45,8 +45,7 @@ Describe Export-DataJourney {
         }
 
         It works-to-directory {
-            $directory = "$TestDrive"
-            $Journey | Export-ArchDataJourney -Directory $directory -ErrorAction Stop
+            $Journey | Export-ArchDataJourney -Directory $TestDrive -ErrorAction Stop
 
             $imported = Get-Content -Path $TestDrive\journey.yml -Raw | ConvertFrom-Yaml
             $imported.Title | Should -Be foobar
