@@ -12,8 +12,14 @@ Imports a data journey.
 
 ## SYNTAX
 
+### File
 ```
-Import-ArchDataJourney [-Path] <FileInfo> [<CommonParameters>]
+Import-ArchDataJourney -Path <FileInfo> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### Directory
+```
+Import-ArchDataJourney -Directory <DirectoryInfo> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,11 +41,41 @@ The path of the export file, that should be imported.
 
 ```yaml
 Type: FileInfo
-Parameter Sets: (All)
+Parameter Sets: File
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Directory
+The path of the export file, that should be imported.
+
+```yaml
+Type: DirectoryInfo
+Parameter Sets: Directory
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -12,8 +12,15 @@ Adds a new data flow to a data journey.
 
 ## SYNTAX
 
+### Properties
 ```
-Add-ArchDataFlow -Journey <Object> [-Key] <String> [[-Title] <String>] -Source <String[]> -Sink <String[]>
+Add-ArchDataFlow -Journey <Object> [-Key] <String> [[-Title] <String>] -Sources <String[]> -Sinks <String[]>
+ [-PassThru] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### InputObject
+```
+Add-ArchDataFlow -Journey <Object> -InputObject <PSObject> [-PassThru] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
@@ -52,7 +59,7 @@ The identifier key of the data flow.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases:
 
 Required: True
@@ -67,7 +74,7 @@ The title of the data flow.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases:
 
 Required: False
@@ -82,7 +89,7 @@ The source models of tha data flow
 
 ```yaml
 Type: String[]
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases: Source
 
 Required: True
@@ -97,13 +104,58 @@ The sink models of tha data flow
 
 ```yaml
 Type: String[]
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases: Sink
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -InputObject
+The data flow is added to the data journey.
+
+```yaml
+Type: PSObject
+Parameter Sets: InputObject
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+Switch that specifies, if the model should be returned instead of only added to the data journey.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

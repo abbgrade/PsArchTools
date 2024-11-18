@@ -12,8 +12,16 @@ Adds a new data layer to a data journey.
 
 ## SYNTAX
 
+### Properties
 ```
-Add-ArchDataLayer -Parent <Object> [-Key] <String> [[-Title] <String>] [-PassThru] [<CommonParameters>]
+Add-ArchDataLayer -Parent <Object> [-Key] <String> [[-Title] <String>] [-PassThru]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### InputObject
+```
+Add-ArchDataLayer -Parent <Object> -InputObject <PSObject> [-PassThru] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +44,7 @@ The data journey or parent layer, the layer is added to.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases:
+Aliases: Journey
 
 Required: True
 Position: Named
@@ -50,7 +58,7 @@ The identifier key of the layer.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases:
 
 Required: True
@@ -65,11 +73,26 @@ The title of the layer.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases:
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -InputObject
+The data layer is added to the data journey.
+
+```yaml
+Type: PSObject
+Parameter Sets: InputObject
+Aliases:
+
+Required: True
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -86,6 +109,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

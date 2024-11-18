@@ -15,13 +15,13 @@ Exports a data journey.
 ### File
 ```
 Export-ArchDataJourney -Title <String> [-Models <PSObject[]>] [-Layer <PSObject[]>] [-Flows <PSObject[]>]
-```
+ -Path <FileInfo> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Directory
 ```
 Export-ArchDataJourney -Title <String> [-Models <PSObject[]>] [-Layer <PSObject[]>] [-Flows <PSObject[]>]
-Export-ArchDataJourney [-DataJourney] <PSObject> [-Path] <FileInfo> [<CommonParameters>]
+ -Directory <DirectoryInfo> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -122,7 +122,22 @@ Parameter Sets: Directory
 Aliases:
 
 Required: True
-Position: 2
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
