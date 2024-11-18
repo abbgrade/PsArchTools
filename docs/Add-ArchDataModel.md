@@ -12,8 +12,16 @@ Adds a new data model to a data journey.
 
 ## SYNTAX
 
+### Properties
 ```
-Add-ArchDataModel -Journey <Object> [-Title] <String> [[-Class] <String>] [-PassThru] [<CommonParameters>]
+Add-ArchDataModel -Parent <Object> [-Key <String>] [-Title] <String> [[-Class] <String>] [-PassThru]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### InputObject
+```
+Add-ArchDataModel -Parent <Object> -InputObject <PSObject> [-PassThru] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,13 +38,13 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -Journey
-The data journey, the data model is added to.
+### -Parent
+The data journey or layer, the data model is added to.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases:
+Aliases: Journey
 
 Required: True
 Position: Named
@@ -45,12 +53,27 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
+### -Key
+The identifier key of the data model.
+
+```yaml
+Type: String
+Parameter Sets: Properties
+Aliases:
+
+Required: False
+Position: Named
+Default value: $Title
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Title
 The title of the data model.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases:
 
 Required: True
@@ -65,11 +88,26 @@ The class of the data model.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Properties
 Aliases:
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -InputObject
+The data model is added to the data journey.
+
+```yaml
+Type: PSObject
+Parameter Sets: InputObject
+Aliases:
+
+Required: True
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -86,6 +124,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

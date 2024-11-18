@@ -12,8 +12,16 @@ Exports a data journey.
 
 ## SYNTAX
 
+### File
 ```
-Export-ArchDataJourney [-DataJourney] <PSObject> [-Path] <FileInfo> [<CommonParameters>]
+Export-ArchDataJourney -Title <String> [-Models <PSObject[]>] [-Layer <PSObject[]>] [-Flows <PSObject[]>]
+ -Path <FileInfo> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### Directory
+```
+Export-ArchDataJourney -Title <String> [-Models <PSObject[]>] [-Layer <PSObject[]>] [-Flows <PSObject[]>]
+ -Directory <DirectoryInfo> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,18 +38,63 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -DataJourney
-The data journey that should be exported.
+### -Title
+The title of the data journey that should be exported.
 
 ```yaml
-Type: PSObject
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Models
+The models of the data journey that should be exported.
+
+```yaml
+Type: PSObject[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Layer
+The layer of the data journey that should be exported.
+
+```yaml
+Type: PSObject[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Flows
+The flows of data journey that should be exported.
+
+```yaml
+Type: PSObject[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -50,11 +103,41 @@ The path of the export file, that should be created.
 
 ```yaml
 Type: FileInfo
-Parameter Sets: (All)
+Parameter Sets: File
 Aliases:
 
 Required: True
-Position: 2
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Directory
+The path of the export file, that should be created.
+
+```yaml
+Type: DirectoryInfo
+Parameter Sets: Directory
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

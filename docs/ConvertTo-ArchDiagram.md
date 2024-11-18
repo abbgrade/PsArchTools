@@ -15,13 +15,13 @@ Converts the roadmap to diagram.
 ### journey
 ```
 ConvertTo-ArchDiagram -Title <String> [-Models <PSObject[]>] [-Flows <PSObject[]>] [-Layer <PSObject[]>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### roadmap
 ```
 ConvertTo-ArchDiagram -Title <String> [-Features <PSObject[]>] [-Milestones <PSObject[]>]
- [-FeatureStates <Hashtable>] [<CommonParameters>]
+ [-FeatureStates <Hashtable>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -161,6 +161,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
