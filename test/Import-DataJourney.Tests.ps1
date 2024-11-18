@@ -55,7 +55,7 @@ Title: foobar
 
             BeforeAll {
 
-                $ExportPath = "$TestDrive\journey.yml"
+                $ExportPath = "$TestDrive/journey.yml"
                 Set-Content -Path $ExportPath -Value @'
 Title: foo
 Layer:
