@@ -11,8 +11,8 @@ Describe Import-DataJourney {
         Context Export {
 
             BeforeAll {
-            
-                $ExportPath = "$TestDrive\journey.yml"
+
+                $ExportPath = "$TestDrive/journey.yml"
                 Set-Content -Path $ExportPath -Value @'
 Title: foobar
 Layer: []
@@ -34,8 +34,8 @@ Flows: []
         Context EmptyExport {
 
             BeforeAll {
-            
-                $ExportPath = "$TestDrive\journey.yml"
+
+                $ExportPath = "$TestDrive/journey.yml"
                 Set-Content -Path $ExportPath -Value @'
 Title: foobar
 '@
@@ -54,7 +54,7 @@ Title: foobar
         Context EmptyLayerExport {
 
             BeforeAll {
-            
+
                 $ExportPath = "$TestDrive\journey.yml"
                 Set-Content -Path $ExportPath -Value @'
 Title: foo
@@ -84,7 +84,7 @@ Layer:
             $SubLayer = $Layer | Add-ArchDataLayer -Key mylayer -Title sublayer -PassThru
             $SubLayer | Add-ArchDataModel -Title mysubmodel -Class analysis
             $Layer | Add-ArchDataFlow -Key mm -Title myflow -Source mymodel -Sink mysubmodel
-        
+
             $Journey | Export-ArchDataJourney -Directory $TestDrive -ErrorAction Stop
         }
 
