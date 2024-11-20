@@ -1,7 +1,7 @@
 function Export-DataJourney {
 
     <#
-    
+
     .SYNOPSIS
     Exports a data journey.
 
@@ -15,15 +15,15 @@ function Export-DataJourney {
         # The title of the data journey that should be exported.
         [Parameter( Mandatory, ValueFromPipelineByPropertyName )]
         [string] $Title,
-        
+
         # The models of the data journey that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
         [PsObject[]] $Models,
-        
+
         # The layer of the data journey that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
         [PsObject[]] $Layer,
-        
+
         # The flows of data journey that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
         [PsObject[]] $Flows,
@@ -49,6 +49,9 @@ function Export-DataJourney {
                 $content | ConvertTo-Yaml -Depth 99 | Out-File $Path
             }
             Directory {
+                if ( -not $Directory.Exists ) {
+                    $Directory.Create()
+                }
                 Export-DataLayer @content -LayerType journey -ParentDirectory $Directory
             }
             default {

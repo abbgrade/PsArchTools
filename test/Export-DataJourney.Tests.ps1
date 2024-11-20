@@ -45,17 +45,17 @@ Describe Export-DataJourney {
         }
 
         It works-to-directory {
-            $Journey | Export-ArchDataJourney -Directory $TestDrive -ErrorAction Stop
+            $Journey | Export-ArchDataJourney -Directory $TestDrive\subfolder -ErrorAction Stop
 
-            $imported = Get-Content -Path $TestDrive\journey.yml -Raw | ConvertFrom-Yaml
+            $imported = Get-Content -Path $TestDrive\subfolder\journey.yml -Raw | ConvertFrom-Yaml
             $imported.Title | Should -Be foobar
             $imported.Layer | Should -BeNullOrEmpty
 
-            Test-Path $TestDrive\layer | Should -Be $true
-            ( Get-ChildItem $TestDrive\layer ).Count | Should -Be 1
-            Test-Path $TestDrive\layer\foo\layer.yml | Should -Be $true
+            Test-Path $TestDrive\subfolder\layer | Should -Be $true
+            ( Get-ChildItem $TestDrive\subfolder\layer ).Count | Should -Be 1
+            Test-Path $TestDrive\subfolder\layer\foo\layer.yml | Should -Be $true
 
-            $imported = Get-Content -Path $TestDrive\layer\foo\layer.yml -Raw | ConvertFrom-Yaml
+            $imported = Get-Content -Path $TestDrive\subfolder\layer\foo\layer.yml -Raw | ConvertFrom-Yaml
             $imported.Title | Should -Be bar
         }
     }
