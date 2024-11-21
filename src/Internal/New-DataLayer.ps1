@@ -6,11 +6,11 @@ function New-DataLayer {
         [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
-        [string] $Key,
+        [string] $Key = $_.Title,
 
         # The title of the data layer.
         [Parameter(ValueFromPipelineByPropertyName)]
-        [string] $Title
+        [string] $Title = $_.Key
     )
 
     process {

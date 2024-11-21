@@ -6,11 +6,11 @@ function New-DataFlow {
         [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
-        [string] $Key,
+        [string] $Key = $_.Title,
 
         # The title of the data flow.
         [Parameter(ValueFromPipelineByPropertyName)]
-        [string] $Title,
+        [string] $Title = $_.Key,
 
         # The source models of tha data flow
         [Parameter(Mandatory, ValueFromPipelineByPropertyName)]

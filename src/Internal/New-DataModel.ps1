@@ -6,12 +6,12 @@ function New-DataModel {
         [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
-        [string] $Key,
+        [string] $Key = $_.Title,
 
         # The title of the data model.
         [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
-        [string] $Title,
+        [string] $Title = $_.Key,
 
         # The class of the data model.
         [Parameter(ValueFromPipelineByPropertyName)]

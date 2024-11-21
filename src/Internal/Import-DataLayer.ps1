@@ -16,7 +16,7 @@ function Import-DataLayer {
         if ( $ModelDirectory.Exists ) {
             Get-ChildItem $ModelDirectory | ForEach-Object {
                 $model = Import-DataModel -Path $_
-                $model | Add-Member Key $_.BaseName
+                $model | Add-Member Key $_.BaseName -Force
                 $layer | Add-DataModel -InputObject $model
             }
         }
@@ -25,7 +25,7 @@ function Import-DataLayer {
         if ( $LayerDirectory.Exists ) {
             Get-ChildItem $LayerDirectory | ForEach-Object {
                 $sublayer = Import-DataLayer -Directory $_
-                $sublayer | Add-Member Key $_.BaseName
+                $sublayer | Add-Member Key $_.BaseName -Force
                 $layer | Add-DataLayer -InputObject $sublayer
             }
         }
@@ -34,7 +34,7 @@ function Import-DataLayer {
         if ( $FlowDirectory.Exists ) {
             Get-ChildItem $FlowDirectory | ForEach-Object {
                 $flow = Import-DataFlow -Path $_
-                $flow | Add-Member Key $_.BaseName
+                $flow | Add-Member Key $_.BaseName -Force
                 $layer | Add-DataFlow -InputObject $flow
             }
         }

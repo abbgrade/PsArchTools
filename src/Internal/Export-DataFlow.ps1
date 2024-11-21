@@ -7,31 +7,15 @@ function Export-DataFlow {
         [ValidateScript({ $_.Exists })]
         [System.IO.DirectoryInfo] $ParentDirectory,
 
-        # The identifier key of the data flow.
-        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
-        [string] $Key,
-
-        # The title of the data flow.
-        [Parameter(ValueFromPipelineByPropertyName)]
-        [ValidateNotNullOrEmpty()]
-        [string] $Title,
-
-        # The source models of tha data flow
-        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
-        [ValidateNotNullOrEmpty()]
-        [string[]] $Sources,
-
-        # The sink models of tha data flow
-        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
-        [ValidateNotNullOrEmpty()]
-        [string[]] $Sinks
+        [PSCustomObject] $InputObject
     )
 
     process {
-        $flow = New-DataFlow -Title:$Title -Source:$Sources -Sink:$Sinks
-        $flow | ConvertTo-Yaml | Out-File -Path ( Join-Path $ParentDirectory "$Key.yml" )
+        $flow = ([PSCustomObject] $InputObject) | New-DataFlow
+        $key = $flow.Key
+        $flow | Select-Object -ExcludeProperty Key | ConvertTo-Yaml | Out-File -Path ( Join-Path $ParentDirectory "$key.yml" )
     }
 
 }

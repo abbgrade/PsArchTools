@@ -48,15 +48,46 @@ Describe Export-DataJourney {
             $Journey | Export-ArchDataJourney -Directory $TestDrive\subfolder -ErrorAction Stop
 
             $imported = Get-Content -Path $TestDrive\subfolder\journey.yml -Raw | ConvertFrom-Yaml
+            $imported.Key | Should -BeNullOrEmpty
             $imported.Title | Should -Be foobar
             $imported.Layer | Should -BeNullOrEmpty
 
             Test-Path $TestDrive\subfolder\layer | Should -Be $true
             ( Get-ChildItem $TestDrive\subfolder\layer ).Count | Should -Be 1
             Test-Path $TestDrive\subfolder\layer\foo\layer.yml | Should -Be $true
-
             $imported = Get-Content -Path $TestDrive\subfolder\layer\foo\layer.yml -Raw | ConvertFrom-Yaml
+            $imported.Key | Should -BeNullOrEmpty
             $imported.Title | Should -Be bar
+
+            ( Get-ChildItem $TestDrive\subfolder\layer\foo\model ).Count | Should -Be 1
+            Test-Path $TestDrive\subfolder\layer\foo\model\mymodel.yml | Should -Be $true
+            $imported = Get-Content -Path $TestDrive\subfolder\layer\foo\model\mymodel.yml -Raw | ConvertFrom-Yaml
+            $imported.Key | Should -BeNullOrEmpty
+            $imported.Title | Should -Be mymodel
+            $imported.Class | Should -Be original
+
+            ( Get-ChildItem $TestDrive\subfolder\layer\foo\layer ).Count | Should -Be 1
+            Test-Path $TestDrive\subfolder\layer\foo\layer\mylayer\layer.yml | Should -Be $true
+            $imported = Get-Content -Path $TestDrive\subfolder\layer\foo\layer\mylayer\layer.yml -Raw | ConvertFrom-Yaml
+            $imported.Key | Should -BeNullOrEmpty
+            $imported.Title | Should -Be sublayer
+
+            ( Get-ChildItem $TestDrive\subfolder\layer\foo\layer\mylayer\model ).Count | Should -Be 1
+            Test-Path $TestDrive\subfolder\layer\foo\layer\mylayer\model\mysubmodel.yml | Should -Be $true
+            $imported = Get-Content -Path $TestDrive\subfolder\layer\foo\layer\mylayer\model\mysubmodel.yml -Raw | ConvertFrom-Yaml
+            $imported.Key | Should -BeNullOrEmpty
+            $imported.Title | Should -Be mysubmodel
+            $imported.Class | Should -Be analysis
+
+            ( Get-ChildItem $TestDrive\subfolder\layer\foo\flows ).Count | Should -Be 1
+            Test-Path $TestDrive\subfolder\layer\foo\flows\mm.yml | Should -Be $true
+            $imported = Get-Content -Path $TestDrive\subfolder\layer\foo\flows\mm.yml -Raw | ConvertFrom-Yaml
+            $imported.Key | Should -BeNullOrEmpty
+            $imported.Title | Should -Be myflow
+            $imported.Sources.Count | Should -Be 1
+            $imported.Sources[0] | Should -Be mymodel
+            $imported.Sinks.Count | Should -Be 1
+            $imported.Sinks[0] | Should -Be mysubmodel
         }
     }
 
