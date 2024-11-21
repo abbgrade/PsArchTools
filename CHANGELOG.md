@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed shape of a flow to subroutine.
 
+## Fixed
+
+- Ignored model key while diagram creation.
+
 ## [0.3.0] - 2024-11-12
 
 ### Added

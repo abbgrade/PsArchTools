@@ -10,6 +10,7 @@ function Import-DataModel {
 
     process {
         $header = Get-Content -Path $Path -Raw | ConvertFrom-Yaml
+        $header.Key = $Path.BaseName
         $model = New-DataModel @header
         Write-Output $model
     }

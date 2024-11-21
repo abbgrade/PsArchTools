@@ -10,6 +10,7 @@ function Import-DataFlow {
 
     process {
         $header = Get-Content -Path $Path -Raw | ConvertFrom-Yaml
+        $header.Key = $Path.BaseName
         $flow = New-DataFlow @header
         Write-Output $flow
     }
