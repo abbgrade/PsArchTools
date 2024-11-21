@@ -115,13 +115,13 @@ flowchart TD
     classDef retention-original fill:#d5e8d4,stroke:#82b366,stroke-width:4px
     diner:::layer-1
     subgraph diner
-        making-cheese{making cheese}
-        bake{bake}
-        form{form}
-        fry{fry}
         bronze:::layer-2
         silver:::layer-2
         gold:::layer-2
+        making-cheese[[making cheese]]
+        bake[[bake]]
+        form[[form]]
+        fry[[fry]]
         milk --> making-cheese
         yeast --> making-cheese
         making-cheese --> cheese

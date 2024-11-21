@@ -1,50 +1,29 @@
 function Convert-DataJourneyLayer {
-    
+
     [CmdletBinding()]
     param (
         [Parameter( Mandatory )]
         $Parent,
-        
+
         [Parameter()]
         [ValidateNotNull()]
         [PSCustomObject[]] $Layer,
-        
+
         [Parameter()]
         [ValidateNotNull()]
         [PSCustomObject[]] $Models,
-        
+
         [Parameter()]
         [ValidateNotNull()]
         [PSCustomObject[]] $Flows,
-        
+
         [Parameter()]
         [int] $Depth
     )
 
     process {
         $Models | ForEach-Object {
-            $Parent | Add-MermaidFlowchartNode -Key $_.Title -Shape cylindrical -Class:$_.Class
-        }
-
-        $Flows | ForEach-Object {
-            $flow = $_
-            $flowId = $_.Key
-            
-            $flowParameter = @{
-                Key = $flowId
-            }
-
-            if ( $_.Title ) {
-                $flowParameter.Text = $_.Title
-            }
-
-            $Parent | Add-MermaidFlowchartNode @flowParameter -Shape rhombus
-            $flow.Sources | ForEach-Object {
-                $Parent | Add-MermaidFlowchartLink -Source $_ -Destination $flowId
-            }
-            $flow.Sinks | ForEach-Object {
-                $Parent | Add-MermaidFlowchartLink -Source $flowId -Destination $_
-            }
+            $Parent | Add-MermaidFlowchartNode -Key $_.Key -Text $_.Title -Shape cylindrical -Class:$_.Class
         }
 
         $Layer | ForEach-Object {
@@ -63,6 +42,27 @@ function Convert-DataJourneyLayer {
                 -Depth ( $Depth + 1 )
 
             $Parent | Add-MermaidFlowchartNode -Key $_.Key -Class "layer-$Depth"
+        }
+
+        $Flows | ForEach-Object {
+            $flow = $_
+            $flowId = $_.Key
+
+            $flowParameter = @{
+                Key = $flowId
+            }
+
+            if ( $_.Title ) {
+                $flowParameter.Text = $_.Title
+            }
+
+            $Parent | Add-MermaidFlowchartNode @flowParameter -Shape subroutine
+            $flow.Sources | ForEach-Object {
+                $Parent | Add-MermaidFlowchartLink -Source $_ -Destination $flowId
+            }
+            $flow.Sinks | ForEach-Object {
+                $Parent | Add-MermaidFlowchartLink -Source $flowId -Destination $_
+            }
         }
 
     }

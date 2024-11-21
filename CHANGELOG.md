@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2024-11-19
+
+### Added
+
+- `Export-DataJourney` and `Import-DataJourney` now support directory structure additional to single files.
+- `Add-DataFlow`, `Add-DataLayer` and `Add-DataModel` now support input objects.
+
+### Changed
+
+- Changed shape of a flow to subroutine.
+
+## Fixed
+
+- Ignored model key while diagram creation.
+
 ## [0.3.0] - 2024-11-12
 
 ### Added
