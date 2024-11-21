@@ -8,36 +8,24 @@ function Export-DataLayer {
         [System.IO.DirectoryInfo] $ParentDirectory,
 
         # The key of the data layer that should be exported.
-        [Parameter( ValueFromPipelineByPropertyName )]
-        [ValidateNotNullOrEmpty()]
-        [string] $Key,
-
-        # The key of the data layer that should be exported.
         [Parameter( Mandatory, ValueFromPipelineByPropertyName )]
         [ValidateSet( 'journey', 'layer' )]
         [string] $LayerType,
 
-        # The title of the data layer that should be exported.
-        [Parameter( Mandatory, ValueFromPipelineByPropertyName )]
-        [string] $Title,
-
-        # The models of the data layer that should be exported.
-        [Parameter( ValueFromPipelineByPropertyName )]
-        [PsObject[]] $Models,
-
-        # The sub layer of the data layer that should be exported.
-        [Parameter( ValueFromPipelineByPropertyName )]
-        [PsObject[]] $Layer,
-
-        # The flows of data layer that should be exported.
-        [Parameter( ValueFromPipelineByPropertyName )]
-        [PsObject[]] $Flows
+        [Parameter(Mandatory, ValueFromPipeline)]
+        [ValidateNotNullOrEmpty()]
+        [PSCustomObject] $InputObject
     )
 
     process {
         [System.IO.DirectoryInfo] $Directory = switch ( $LayerType ) {
             journey { $ParentDirectory }
-            layer { Join-Path $ParentDirectory $Key }
+            layer {
+                if ( -not $InputObject.Key ) {
+                    Write-Error 'Input lacks key property.'
+                }
+                Join-Path $ParentDirectory $InputObject.Key
+            }
             Default {
                 Write-Error "Unsupported LayerType '$_'"
             }
@@ -47,34 +35,34 @@ function Export-DataLayer {
             $Directory.Create()
         }
 
-        if ( $Models ) {
+        if ( $InputObject.Models ) {
             [System.IO.DirectoryInfo] $ModelDirectory = Join-Path $Directory model
             if ( -not $ModelDirectory.Exists ) {
                 $ModelDirectory.Create()
             }
-            $Models | Export-DataModel -ParentDirectory $ModelDirectory
+            $InputObject.Models | Export-DataModel -ParentDirectory $ModelDirectory
         }
 
-        if ( $Layer ) {
+        if ( $InputObject.Layer ) {
             [System.IO.DirectoryInfo] $LayerDirectory = Join-Path $Directory layer
             if ( -not $LayerDirectory.Exists ) {
                 $LayerDirectory.Create()
             }
-            $Layer | Export-DataLayer -ParentDirectory $LayerDirectory -LayerType layer
+            $InputObject.Layer | Export-DataLayer -ParentDirectory $LayerDirectory -LayerType layer
         }
 
-        if ( $Flows ) {
+        if ( $InputObject.Flows ) {
             [System.IO.DirectoryInfo] $FlowsDirectory = Join-Path $Directory flows
             if ( -not $FlowsDirectory.Exists ) {
                 $FlowsDirectory.Create()
             }
-            $Flows | Export-DataFlow -ParentDirectory $FlowsDirectory
+            $InputObject.Flows | Export-DataFlow -ParentDirectory $FlowsDirectory
         }
 
         $Header = @{}
 
-        if ( $Title ) {
-            $Header.Title = $Title
+        if ( $InputObject.Title ) {
+            $Header.Title = $InputObject.Title
         }
 
         if ( $Header ) {

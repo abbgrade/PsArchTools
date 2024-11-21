@@ -49,7 +49,6 @@ function Import-DataJourney {
                 if ( $ModelDirectory.Exists ) {
                     Get-ChildItem $ModelDirectory | ForEach-Object {
                         $model = Import-DataModel -Path $_
-                        $model | Add-Member Key $_.BaseName
                         $DataJourney | Add-DataModel -InputObject $model
                     }
                 }
@@ -58,7 +57,6 @@ function Import-DataJourney {
                 if ( $LayerDirectory.Exists ) {
                     Get-ChildItem $LayerDirectory | ForEach-Object {
                         $sublayer = Import-DataLayer -Directory $_
-                        $sublayer | Add-Member Key $_.BaseName
                         $DataJourney | Add-DataLayer -InputObject $sublayer
                     }
                 }
@@ -67,7 +65,6 @@ function Import-DataJourney {
                 if ( $FlowDirectory.Exists ) {
                     Get-ChildItem $FlowDirectory | ForEach-Object {
                         $flow = Import-DataFlow -Path $_
-                        $flow | Add-Member Key $_.BaseName
                         $DataJourney | Add-DataFlow -InputObject $flow
                     }
                 }

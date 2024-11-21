@@ -1,7 +1,7 @@
 function Export-DataJourney {
 
     <#
-    
+
     .SYNOPSIS
     Exports a data journey.
 
@@ -15,18 +15,18 @@ function Export-DataJourney {
         # The title of the data journey that should be exported.
         [Parameter( Mandatory, ValueFromPipelineByPropertyName )]
         [string] $Title,
-        
+
         # The models of the data journey that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
-        [PsObject[]] $Models,
-        
+        [PSCustomObject[]] $Models,
+
         # The layer of the data journey that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
-        [PsObject[]] $Layer,
-        
+        [PSCustomObject[]] $Layer,
+
         # The flows of data journey that should be exported.
         [Parameter( ValueFromPipelineByPropertyName )]
-        [PsObject[]] $Flows,
+        [PSCustomObject[]] $Flows,
 
         # The path of the export file, that should be created.
         [Parameter( Mandatory, ParameterSetName = 'File' )]
@@ -38,7 +38,7 @@ function Export-DataJourney {
     )
 
     process {
-        $content = @{
+        $content = [PSCustomObject]@{
             Title  = $Title
             Models = $Models
             Layer  = $Layer
@@ -49,7 +49,10 @@ function Export-DataJourney {
                 $content | ConvertTo-Yaml -Depth 99 | Out-File $Path
             }
             Directory {
-                Export-DataLayer @content -LayerType journey -ParentDirectory $Directory
+                if ( -not $Directory.Exists ) {
+                    $Directory.Create()
+                }
+                $content | Export-DataLayer -LayerType journey -ParentDirectory $Directory
             }
             default {
                 Write-Error "ParameterSetName '$_' not supported"

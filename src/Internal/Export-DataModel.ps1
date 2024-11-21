@@ -7,27 +7,15 @@ function Export-DataModel {
         [ValidateScript({ $_.Exists })]
         [System.IO.DirectoryInfo] $ParentDirectory,
 
-        # The identifier key of the data model.
-        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
-        [string] $Key,
-
-        # The title of the data model.
-        [Parameter(ValueFromPipelineByPropertyName)]
-        [ValidateNotNullOrEmpty()]
-        [string] $Title,
-
-        # The class of the data model.
-        [Parameter(ValueFromPipelineByPropertyName)]
-        [ValidateNotNullOrEmpty()]
-        [ValidateSet('original', 'exchange', 'exchange-original', 'analysis', 'analysis-original', 'retention', 'retention-original')]
-        [string] $Class
+        [PSCustomObject] $InputObject
     )
 
     process {
-        $flow = New-DataModel -Title:$Title -Class:$Class
-        $flow | ConvertTo-Yaml | Out-File -Path ( Join-Path $ParentDirectory "$Key.yml" )
+        $model = ([PSCustomObject]$InputObject) | New-DataModel
+        $key = $model.Key
+        $model | Select-Object -ExcludeProperty Key | ConvertTo-Yaml | Out-File -Path ( Join-Path $ParentDirectory "$key.yml" )
     }
 
 }

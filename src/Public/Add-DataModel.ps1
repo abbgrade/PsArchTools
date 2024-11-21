@@ -1,7 +1,7 @@
 function Add-DataModel {
 
     <#
-    
+
     .SYNOPSIS
     Adds a new data model to a data journey.
 
@@ -9,7 +9,7 @@ function Add-DataModel {
     Creates and adds a data model to a data journey.
 
     #>
-    
+
     [CmdletBinding()]
     param (
         # The data journey or layer, the data model is added to.
@@ -21,7 +21,7 @@ function Add-DataModel {
         # The identifier key of the data model.
         [Parameter(ParameterSetName = 'Properties' )]
         [ValidateScript({ $_ -notmatch ' ' }, ErrorMessage = 'Value must not contain spaces.')]
-        [string] $Key = $Title,
+        [string] $Key,
 
         # The title of the data model.
         [Parameter(Mandatory, Position = 0, ParameterSetName = 'Properties')]
@@ -46,6 +46,9 @@ function Add-DataModel {
     process {
         switch ($PsCmdlet.ParameterSetName) {
             Properties {
+                if ( -not $Key) {
+                    $Key = $Title
+                }
                 $InputObject = New-DataModel -Key:$Key -Title:$Title -Class:$Class
             }
             InputObject {
