@@ -7,7 +7,7 @@ function Select-DataJourney {
 
     .DESCRIPTION
     Return a copy of a data journey and apply filter on it.
-    
+
     #>
 
     [CmdletBinding()]
@@ -15,15 +15,15 @@ function Select-DataJourney {
         # Data journey to select from.
         [Parameter(Mandatory, ValueFromPipeline)]
         [PSCustomObject] $Journey,
-        
+
         # Models in the data journey diagram.
         [Parameter()]
         [string[]] $Model,
-        
+
         # Flows in the data journey diagram.
         [Parameter()]
         [string[]] $Flow,
-        
+
         # Layer in the data journey diagram.
         [Parameter()]
         [string] $Layer
@@ -31,43 +31,39 @@ function Select-DataJourney {
 
     process {
 
-        # filter data flows
-        $selectedFlowsJourney = New-DataJourney -Title:$Journey.Title
-        $Journey | Select-DataJourneyLayer `
-            -Target $selectedFlowsJourney `
-            -Flow:$Flow
+        $flowFilter = $Flow
 
-        # prepare model filter
-        $transitiveModels = $selectedFlowsJourney | 
-        Get-DataFlow -Recurse | 
-        ForEach-Object {
+        # select all flows specified
+        $selectedFlows = $Journey | Get-DataFlow -Key $flowFilter -Recurse
+
+        # select models used by selected flows
+        $transitiveModels = $selectedFlows | ForEach-Object {
             $_.Sources | ForEach-Object { $_ }
             $_.Sinks | ForEach-Object { $_ }
         }
-        [string[]] $modelFilter = ( $transitiveModels + $Model) | Where-Object { $_ }
-        
-        # filter models
-        $selectedModelsJourney = New-DataJourney -Title:$Journey.Title
-        $selectedFlowsJourney | Select-DataJourneyLayer `
-            -Target $selectedModelsJourney `
-            -Model:$modelFilter
-        
-        # prepare layer filter
-        $transitiveLayer = $selectedModelsJourney | 
-        Get-DataLayer -Recurse | 
-        Where-Object {
-            $_.Layer -or $_.Models
-        } | Where-Object Key | Select-Object -ExpandProperty Key
-        [string[]] $layerFilter = ( $transitiveLayer + $Layer) | Where-Object { $_ }
+
+        # union all required models
+        [string[]] $modelFilter = ( $transitiveModels + $Model) | Where-Object { $_ } | Select-Object -Unique
+
+        # select all layers used by required models
+        $transitiveLayersByModels = $Journey | Get-DataLayer -Model $modelFilter -Recurse
+
+        # select all layers used by required flows
+        $transitiveLayersByFlows = $Journey | Get-DataLayer -Flow $flowFilter -Recurse
+
+        # select layers required by flows or models (recursively)
+        $transitiveLayers = $Journey | Get-DataLayer -Layer ( ( $transitiveLayersByModels + $transitiveLayersByFlows ) | Where-Object { $_ } ) -Transitive
+        [string[]] $layerFilter = ( ( $transitiveLayers | Where-Object { $_.Key } | Select-Object -ExpandProperty Key ) + $Layer) | Where-Object { $_ } | Select-Object -Unique
 
         # filter layer
-        $selectedLayerJourney = New-DataJourney -Title:$Journey.Title
-        $selectedModelsJourney | Select-DataJourneyLayer `
-            -Target $selectedLayerJourney `
+        $selectedJourney = New-DataJourney -Title:$Journey.Title
+        $Journey | Select-DataJourneyLayer `
+            -Target $selectedJourney `
+            -Flow:$flowFilter `
             -Model:$modelFilter `
             -Layer:$layerFilter
 
         # return output
-        $selectedLayerJourney | Write-Output
+        $selectedJourney | Write-Output
     }
 }

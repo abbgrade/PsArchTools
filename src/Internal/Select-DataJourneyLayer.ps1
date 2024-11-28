@@ -1,5 +1,5 @@
 function Select-DataJourneyLayer {
-    
+
     [CmdletBinding()]
     param (
         # Data journey to select from.
@@ -8,15 +8,15 @@ function Select-DataJourneyLayer {
 
         [Parameter( Mandatory )]
         $Target,
-        
+
         # Models in the data journey diagram.
         [Parameter()]
         [string[]] $Model,
-        
+
         # Flows in the data journey diagram.
         [Parameter()]
         [string[]] $Flow,
-        
+
         # Layer in the data journey diagram.
         [Parameter()]
         [string[]] $Layer
@@ -38,17 +38,17 @@ function Select-DataJourneyLayer {
 
         # copy models
         $Parent.Models | Where-Object { $_ } | Where-Object {
-            ( $_.Title -in $Model ) -or ( -not $Model )            
+            ( $_.Key -in $Model ) -or ( -not $Model )
         } | ForEach-Object {
             $modelParameter = @{}
             if ( $_.Class ) {
                 $modelParameter.Class = $_.Class
             }
-            $Target | Add-DataModel -Title $_.Title @modelParameter
+            $Target | Add-DataModel -Key $_.Key -Title $_.Title @modelParameter
         }
 
         # copy flows
-        $Parent.Flows | Where-Object { 
+        $Parent.Flows | Where-Object {
             ( $_.Key -in $Flow ) -or ( -not $Flow )
         } | ForEach-Object {
             $flowParameter = @{}
