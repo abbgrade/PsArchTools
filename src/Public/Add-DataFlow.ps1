@@ -1,16 +1,16 @@
 function Add-DataFlow {
 
     <#
-    
+
     .SYNOPSIS
     Adds a new data flow to a data journey.
 
     .DESCRIPTION
-    Creates and adds a data flow to a data journey. 
+    Creates and adds a data flow to a data journey.
     If the source or the sink models are not defined, they will be created implicitly.
 
     #>
-    
+
     [CmdletBinding()]
     param (
         # The data journey, the data flow is added to.
@@ -28,6 +28,11 @@ function Add-DataFlow {
         [Parameter(Position = 1, ParameterSetName = 'Properties')]
         [ValidateNotNullOrEmpty()]
         [string] $Title,
+
+        # The description of the data flow.
+        [Parameter(ParameterSetName = 'Properties')]
+        [ValidateNotNullOrEmpty()]
+        [string] $Description,
 
         # The source models of tha data flow
         [Parameter(ValueFromPipeline, Mandatory, ParameterSetName = 'Properties')]
@@ -53,7 +58,7 @@ function Add-DataFlow {
     process {
         switch ($PsCmdlet.ParameterSetName) {
             Properties {
-                $InputObject = New-DataFlow -Key:$Key -Title:$Title -Sources:$Sources -Sinks:$Sinks
+                $InputObject = New-DataFlow -Key:$Key -Title:$Title -Description:$Description -Sources:$Sources -Sinks:$Sinks
             }
             InputObject {
             }

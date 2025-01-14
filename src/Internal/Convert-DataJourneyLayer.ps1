@@ -23,7 +23,11 @@ function Convert-DataJourneyLayer {
 
     process {
         $Models | ForEach-Object {
-            $Parent | Add-MermaidFlowchartNode -Key $_.Key -Text $_.Title -Shape cylindrical -Class:$_.Class
+            $text = $_.Title
+            if ( $_.Description ) {
+                $text += "<br><small>$( $_.Description )</small>"
+            }
+            $Parent | Add-MermaidFlowchartNode -Key $_.Key -Text $text -Shape cylindrical -Class:$_.Class
         }
 
         $Layer | ForEach-Object {
@@ -54,6 +58,13 @@ function Convert-DataJourneyLayer {
 
             if ( $_.Title ) {
                 $flowParameter.Text = $_.Title
+            }
+
+            if ( $_.Description ) {
+                if ( -not $flowParameter.Text ) {
+                    $flowParameter.Text = $_.Key
+                }
+                $flowParameter.Text += "<br><small>$( $_.Description )</small>"
             }
 
             $Parent | Add-MermaidFlowchartNode @flowParameter -Shape subroutine

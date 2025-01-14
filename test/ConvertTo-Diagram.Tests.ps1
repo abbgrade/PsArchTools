@@ -91,7 +91,7 @@ flowchart LR
             $Silver | Add-ArchDataModel bun retention-original
             $Diner | Add-ArchDataFlow bake -Sink bun -Source flour, yeast
             $Silver | Add-ArchDataModel patty retention
-            $Diner | Add-ArchDataFlow form -Sink patty -Source beef
+            $Diner | Add-ArchDataFlow form -Description 'do not add breadcrumbs or onions' -Sink patty -Source beef
 
             $Gold = $Diner | Add-ArchDataLayer gold -PassThru
             $Gold | Add-ArchDataModel burger analysis
@@ -120,7 +120,7 @@ flowchart TD
         gold:::layer-2
         making-cheese[[making cheese]]
         bake[[bake]]
-        form[[form]]
+        form[[form<br><small>do not add breadcrumbs or onions</small>]]
         fry[[fry]]
         milk --> making-cheese
         yeast --> making-cheese
