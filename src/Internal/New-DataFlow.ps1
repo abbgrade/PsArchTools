@@ -12,6 +12,10 @@ function New-DataFlow {
         [Parameter(ValueFromPipelineByPropertyName)]
         [string] $Title = $_.Key,
 
+        # The description of the data flow.
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [string] $Description,
+
         # The source models of tha data flow
         [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
@@ -35,6 +39,11 @@ function New-DataFlow {
 
         if ( $Title ) {
             $flow | Add-Member Title $Title
+        }
+
+        if ( $Description )
+        {
+            $flow | Add-Member Description $Description
         }
 
         Write-Output $flow

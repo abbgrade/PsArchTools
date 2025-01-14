@@ -83,7 +83,7 @@ Layer:
             $Layer | Add-ArchDataModel -Title mymodel -Class original
             $SubLayer = $Layer | Add-ArchDataLayer -Key mylayer -Title sublayer -PassThru
             $SubLayer | Add-ArchDataModel -Title mysubmodel -Class analysis
-            $Layer | Add-ArchDataFlow -Key mm -Title myflow -Source mymodel -Sink mysubmodel
+            $Layer | Add-ArchDataFlow -Key mm -Title myflow -Description mymodeldescription -Source mymodel -Sink mysubmodel
 
             $Journey | Export-ArchDataJourney -Directory $TestDrive -ErrorAction Stop
         }
@@ -107,6 +107,7 @@ Layer:
             $imported.Layer[0].Flows.Count | Should -Be 1
             $imported.Layer[0].Flows[0].Key | Should -Be mm
             $imported.Layer[0].Flows[0].Title | Should -Be myflow
+            $imported.Layer[0].Flows[0].Description | Should -Be mymodeldescription
             $imported.Layer[0].Flows[0].Sources.Count | Should -Be 1
             $imported.Layer[0].Flows[0].Sources[0] | Should -Be mymodel
             $imported.Layer[0].Flows[0].Sinks.Count | Should -Be 1

@@ -14,8 +14,8 @@ Adds a new data flow to a data journey.
 
 ### Properties
 ```
-Add-ArchDataFlow -Journey <Object> [-Key] <String> [[-Title] <String>] -Sources <String[]> -Sinks <String[]>
- [-PassThru] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Add-ArchDataFlow -Journey <Object> [-Key] <String> [[-Title] <String>] [-Description <String>]
+ -Sources <String[]> -Sinks <String[]> [-PassThru] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### InputObject
@@ -25,7 +25,7 @@ Add-ArchDataFlow -Journey <Object> -InputObject <PSObject> [-PassThru] [-Progres
 ```
 
 ## DESCRIPTION
-Creates and adds a data flow to a data journey. 
+Creates and adds a data flow to a data journey.
 If the source or the sink models are not defined, they will be created implicitly.
 
 ## EXAMPLES
@@ -79,6 +79,21 @@ Aliases:
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Description
+The description of the data flow.
+
+```yaml
+Type: String
+Parameter Sets: Properties
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

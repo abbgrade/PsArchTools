@@ -44,6 +44,11 @@ function Select-DataJourneyLayer {
             if ( $_.Class ) {
                 $modelParameter.Class = $_.Class
             }
+
+            if ( $_.Description ) {
+                $flowParameter.Description = $_.Description
+            }
+
             $Target | Add-DataModel -Key $_.Key -Title $_.Title @modelParameter
         }
 
@@ -55,6 +60,10 @@ function Select-DataJourneyLayer {
 
             if ( $_.Title ) {
                 $flowParameter.Title = $_.Title
+            }
+
+            if ( $_.Description ) {
+                $flowParameter.Description = $_.Description
             }
 
             if ( $_.Sources ) {

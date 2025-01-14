@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added description property to data journey flows.
+
 ## [0.4.1] - 2024-11-28
 
 ### Fixed

@@ -28,7 +28,7 @@ Describe Select-DataJourney {
 
             $Gold = $Diner | Add-ArchDataLayer gold -PassThru
             $Gold | Add-ArchDataModel burger analysis
-            $Diner | Add-ArchDataFlow fry -Sink burger -Source bun, patty, cheese
+            $Diner | Add-ArchDataFlow fry -Description 'roast the bun a little and add the cheese to patty before the end' -Sink burger -Source bun, patty, cheese
         }
 
         It works {
@@ -37,9 +37,11 @@ Describe Select-DataJourney {
             $SubJourney.Layer[0].Key | Should -Be diner
             $SubJourney.Layer[0].Flows.Count | Should -Be 1
             $SubJourney.Layer[0].Flows[0].Key | Should -Be fry
-            $SubJourney.Layer[0].Layer.Count | Should -Be 2
-            $SubJourney.Layer[0].Layer[0].Models.Count | Should -Be 3
-            $SubJourney.Layer[0].Layer[1].Models.Count | Should -Be 1
+            $SubJourney.Layer[0].Flows[0].Description | Should -Be 'roast the bun a little and add the cheese to patty before the end'
+            $SubJourney.Layer[0].Layer.Count | Should -BeIn 3
+            $SubJourney.Layer[0].Layer[0].Models.Count | Should -Be 0
+            $SubJourney.Layer[0].Layer[1].Models.Count | Should -Be 3
+            $SubJourney.Layer[0].Layer[2].Models.Count | Should -Be 1
         }
     }
 
