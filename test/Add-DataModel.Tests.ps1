@@ -13,9 +13,10 @@ Describe Add-DataModel {
         }
 
         It works {
-            $Journey | Add-ArchDataModel -Title bar
+            $Journey | Add-ArchDataModel -Title bar -Description baz
             $Journey.Models.Count | Should -Be 1
             $Journey.Models[0].Title | Should -Be bar
+            $Journey.Models[0].Description | Should -Be baz
         }
 
     }

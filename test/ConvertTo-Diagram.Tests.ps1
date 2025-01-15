@@ -94,7 +94,7 @@ flowchart LR
             $Diner | Add-ArchDataFlow form -Description 'do not add breadcrumbs or onions' -Sink patty -Source beef
 
             $Gold = $Diner | Add-ArchDataLayer gold -PassThru
-            $Gold | Add-ArchDataModel burger analysis
+            $Gold | Add-ArchDataModel burger analysis -Description 'very delicious'
             $Diner | Add-ArchDataFlow fry -Sink burger -Source bun, patty, cheese
         }
 
@@ -146,7 +146,7 @@ flowchart TD
             patty[(patty)]:::retention
         end
         subgraph gold
-            burger[(burger)]:::analysis
+            burger[(burger<br><small>very delicious</small>)]:::analysis
         end
     end
 '@
