@@ -13,6 +13,10 @@ function New-DataModel {
         [ValidateNotNullOrEmpty()]
         [string] $Title = $_.Key,
 
+        # The description of the data model.
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [string] $Description,
+
         # The class of the data model.
         [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateSet('', 'original', 'exchange', 'exchange-original', 'analysis', 'analysis-original', 'retention', 'retention-original')]
@@ -28,6 +32,11 @@ function New-DataModel {
 
         if ( $Title ) {
             $model | Add-Member Title $Title
+        }
+
+        if ( $Description )
+        {
+            $model | Add-Member Description $Description
         }
 
         if ( $Class ) {

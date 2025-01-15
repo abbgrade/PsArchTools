@@ -46,7 +46,7 @@ function Select-DataJourneyLayer {
             }
 
             if ( $_.Description ) {
-                $flowParameter.Description = $_.Description
+                $modelParameter.Description = $_.Description
             }
 
             $Target | Add-DataModel -Key $_.Key -Title $_.Title @modelParameter

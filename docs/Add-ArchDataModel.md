@@ -14,8 +14,8 @@ Adds a new data model to a data journey.
 
 ### Properties
 ```
-Add-ArchDataModel -Parent <Object> [-Key <String>] [-Title] <String> [[-Class] <String>] [-PassThru]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Add-ArchDataModel -Parent <Object> [-Key <String>] [-Title] <String> [-Description <String>]
+ [[-Class] <String>] [-PassThru] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### InputObject
@@ -78,6 +78,21 @@ Aliases:
 
 Required: True
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Description
+The description of the data model.
+
+```yaml
+Type: String
+Parameter Sets: Properties
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -28,6 +28,11 @@ function Add-DataModel {
         [ValidateNotNullOrEmpty()]
         [string] $Title,
 
+        # The description of the data model.
+        [Parameter(ParameterSetName = 'Properties')]
+        [ValidateNotNullOrEmpty()]
+        [string] $Description,
+
         # The class of the data model.
         [Parameter(Position = 1, ParameterSetName = 'Properties')]
         [ValidateNotNullOrEmpty()]
@@ -49,7 +54,7 @@ function Add-DataModel {
                 if ( -not $Key) {
                     $Key = $Title
                 }
-                $InputObject = New-DataModel -Key:$Key -Title:$Title -Class:$Class
+                $InputObject = New-DataModel -Key:$Key -Title:$Title -Description:$Description -Class:$Class
             }
             InputObject {
             }

@@ -27,7 +27,7 @@ Describe Select-DataJourney {
             $Diner | Add-ArchDataFlow form -Sink patty -Source beef
 
             $Gold = $Diner | Add-ArchDataLayer gold -PassThru
-            $Gold | Add-ArchDataModel burger analysis
+            $Gold | Add-ArchDataModel burger analysis -Description 'very delicious'
             $Diner | Add-ArchDataFlow fry -Description 'roast the bun a little and add the cheese to patty before the end' -Sink burger -Source bun, patty, cheese
         }
 
@@ -42,6 +42,7 @@ Describe Select-DataJourney {
             $SubJourney.Layer[0].Layer[0].Models.Count | Should -Be 0
             $SubJourney.Layer[0].Layer[1].Models.Count | Should -Be 3
             $SubJourney.Layer[0].Layer[2].Models.Count | Should -Be 1
+            $SubJourney.Layer[0].Layer[2].Models[0].Description | Should -Be 'very delicious'
         }
     }
 
