@@ -1,7 +1,7 @@
 function ConvertTo-Diagram {
 
     <#
-    
+
     .SYNOPSIS
     Converts the roadmap to diagram.
 
@@ -41,12 +41,12 @@ function ConvertTo-Diagram {
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
         [string] $Title,
-        
+
         # Features in the roadmap diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
         [ValidateNotNull()]
         [PSCustomObject[]] $Features,
-        
+
         # Milestones in the roadmap diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
         [ValidateNotNull()]
@@ -56,17 +56,17 @@ function ConvertTo-Diagram {
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'roadmap')]
         [ValidateNotNull()]
         [hashtable] $FeatureStates,
-        
+
         # Models in the data journey diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
         [ValidateNotNull()]
         [PSCustomObject[]] $Models,
-        
+
         # Flows in the data journey diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
         [ValidateNotNull()]
         [PSCustomObject[]] $Flows,
-        
+
         # Layer in the data journey diagram.
         [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'journey')]
         [ValidateNotNull()]
@@ -85,7 +85,7 @@ function ConvertTo-Diagram {
                         default {
                             $diagram | Add-MermaidFlowchartClass -Name "feature_$_" -Style $FeatureStates[$_]
                         }
-                    }                    
+                    }
                 }
                 $diagram | Add-MermaidFlowchartClass -Name milestone -Style 'fill:#96ceb4'
 
@@ -104,9 +104,9 @@ function ConvertTo-Diagram {
 
                     $diagram | Add-MermaidFlowchartNode `
                         -Key $node.Id `
-                        -Name ('"' + $node.Title.Replace('"', '') + '"') `
+                        -Name $node.Title `
                         -Class $class
-        
+
                     if ( $node.Link ) {
                         $diagram | Add-MermaidFlowchartClick `
                             -Node $node.Id `
@@ -127,7 +127,7 @@ function ConvertTo-Diagram {
                     $node = [PSCustomObject] $_
                     $diagram | Add-MermaidFlowchartNode `
                         -Key $node.Id `
-                        -Name ('"' + $node.Title + '"') `
+                        -Name $node.Title `
                         -Class milestone
 
                     if ( $node.Dependencies ) {

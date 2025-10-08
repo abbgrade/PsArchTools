@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-10-08
+
+### Changed
+
+- Updated PsMermaidTools to 0.7.0.
+- Escaping within nodes is now handles by PsMermaidTools.
+
+### Added
+
+- Added `Remove-DataLayer` command.
+
 ## [0.6.2] - 2025-01-17
 
 ### Fixed

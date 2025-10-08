@@ -12,7 +12,7 @@
 RootModule = 'PsArchTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.6.2'
+ModuleVersion = '0.7.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -54,7 +54,7 @@ Description = 'Tools to support software architects.'
 RequiredModules = @(
     @{
     ModuleName = 'PsMermaidTools'
-    ModuleVersion = '0.5.2'
+    ModuleVersion = '0.7.0'
 }, @{
     ModuleName = 'Yayaml'
     ModuleVersion = '0.3.0'
