@@ -118,10 +118,24 @@ flowchart TD
         bronze:::layer-2
         silver:::layer-2
         gold:::layer-2
-        making-cheese[[making cheese]]
-        bake[[bake]]
-        form[[form<br><small>do not add breadcrumbs or onions</small>]]
-        fry[[fry]]
+        making-cheese[["making cheese"]]
+        bake[["bake"]]
+        form[["form<br><small>do not add breadcrumbs or onions</small>"]]
+        fry[["fry"]]
+        subgraph bronze
+            milk[("milk")]:::exchange
+            yeast[("yeast")]:::exchange
+            flour[("flour")]:::exchange
+            beef[("beef")]:::exchange-original
+        end
+        subgraph silver
+            cheese[("cheese")]:::retention-original
+            bun[("bun")]:::retention-original
+            patty[("patty")]:::retention
+        end
+        subgraph gold
+            burger[("burger<br><small>very delicious</small>")]:::analysis
+        end
         milk --> making-cheese
         yeast --> making-cheese
         making-cheese --> cheese
@@ -134,20 +148,6 @@ flowchart TD
         patty --> fry
         cheese --> fry
         fry --> burger
-        subgraph bronze
-            milk[(milk)]:::exchange
-            yeast[(yeast)]:::exchange
-            flour[(flour)]:::exchange
-            beef[(beef)]:::exchange-original
-        end
-        subgraph silver
-            cheese[(cheese)]:::retention-original
-            bun[(bun)]:::retention-original
-            patty[(patty)]:::retention
-        end
-        subgraph gold
-            burger[(burger<br><small>very delicious</small>)]:::analysis
-        end
     end
 '@
         }
