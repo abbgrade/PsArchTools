@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated PsMermaidTools to 0.7.0.
+
 ## [0.6.2] - 2025-01-17
 
 ### Fixed

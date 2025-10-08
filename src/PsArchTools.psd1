@@ -54,7 +54,7 @@ Description = 'Tools to support software architects.'
 RequiredModules = @(
     @{
     ModuleName = 'PsMermaidTools'
-    ModuleVersion = '0.5.2'
+    ModuleVersion = '0.7.0'
 }, @{
     ModuleName = 'Yayaml'
     ModuleVersion = '0.3.0'
