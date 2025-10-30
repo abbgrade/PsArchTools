@@ -146,6 +146,9 @@ function ConvertTo-Diagram {
 
                 $diagram | Add-MermaidFlowchartClass -Name layer-1 -Style 'fill:#eeeeee'
                 $diagram | Add-MermaidFlowchartClass -Name layer-2 -Style 'fill:#dddddd'
+                $diagram | Add-MermaidFlowchartClass -Name layer-3 -Style 'fill:#cccccc'
+                $diagram | Add-MermaidFlowchartClass -Name layer-4 -Style 'fill:#bbbbbb'
+                $diagram | Add-MermaidFlowchartClass -Name layer-5 -Style 'fill:#aaaaaa'
                 $diagram | Add-MermaidFlowchartClass -Name original -Style 'fill:#ffffff,stroke:#555555,stroke-width:4px'
                 $diagram | Add-MermaidFlowchartClass -Name exchange -Style 'fill:#ffe6cc,stroke:#d79b00'
                 $diagram | Add-MermaidFlowchartClass -Name exchange-original -Style 'fill:#ffe6cc,stroke:#d79b00,stroke-width:4px'

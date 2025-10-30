@@ -106,6 +106,9 @@ title: Diagram Title
 flowchart TD
     classDef layer-1 fill:#eeeeee
     classDef layer-2 fill:#dddddd
+    classDef layer-3 fill:#cccccc
+    classDef layer-4 fill:#bbbbbb
+    classDef layer-5 fill:#aaaaaa
     classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
     classDef exchange fill:#ffe6cc,stroke:#d79b00
     classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px
@@ -172,6 +175,9 @@ title: foobar
 flowchart TD
     classDef layer-1 fill:#eeeeee
     classDef layer-2 fill:#dddddd
+    classDef layer-3 fill:#cccccc
+    classDef layer-4 fill:#bbbbbb
+    classDef layer-5 fill:#aaaaaa
     classDef original fill:#ffffff,stroke:#555555,stroke-width:4px
     classDef exchange fill:#ffe6cc,stroke:#d79b00
     classDef exchange-original fill:#ffe6cc,stroke:#d79b00,stroke-width:4px
